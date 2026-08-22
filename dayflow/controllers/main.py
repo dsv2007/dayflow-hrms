@@ -105,10 +105,16 @@ class DayflowAPIController(http.Controller):
             if not group:
                 return json_response({'error': f'Security group {group_ref} not found.'}, status=500)
 
+            # Fetch default company
+            company = env['res.company'].search([], limit=1)
+            company_id = company.id if company else 1
+
             user_vals = {
                 'name': name,
                 'login': email,
                 'password': password,
+                'company_id': company_id,
+                'company_ids': [(6, 0, [company_id])],
                 'group_ids': [(6, 0, [group.id])]
             }
             new_user = env['res.users'].create(user_vals)
@@ -117,6 +123,7 @@ class DayflowAPIController(http.Controller):
                 'name': name,
                 'work_email': email,
                 'user_id': new_user.id,
+                'company_id': company_id,
                 'dayflow_role': role,
             }
             new_employee = env['hr.employee'].create(employee_vals)
