@@ -14,7 +14,16 @@ function App() {
   // App States
   const [session, setSession] = useState<UserSession | null>(() => {
     const saved = localStorage.getItem('dayflow_session');
-    return saved ? JSON.parse(saved) : null;
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (parsed && parsed.employee) {
+          return parsed;
+        }
+      } catch (e) {}
+      localStorage.removeItem('dayflow_session');
+    }
+    return null;
   });
   
   const [loginVal, setLoginVal] = useState('admin'); // Default login for hackathon testing
