@@ -4,6 +4,9 @@
 # Allow tracking of this .gitignore file
 !/.gitignore
 
+# Allow tracking of the root README.md file
+!/README.md
+
 # Allow tracking of the Dayflow HRMS Odoo backend module
 !/dayflow/
 
