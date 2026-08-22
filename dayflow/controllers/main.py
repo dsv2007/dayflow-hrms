@@ -45,7 +45,8 @@ class DayflowAPIController(http.Controller):
             return json_response({'error': 'Missing credentials or database name.'}, status=400)
 
         try:
-            uid = request.session.authenticate(db, login, password)
+            auth_info = request.session.authenticate(request.env, {'type': 'password', 'login': login, 'password': password})
+            uid = auth_info['uid']
             if not uid:
                 return json_response({'error': 'Authentication failed.'}, status=401)
             
@@ -69,7 +70,7 @@ class DayflowAPIController(http.Controller):
                 'session_id': request.session.sid
             })
         except Exception as e:
-            _logger.error("Authentication error: %s", str(e))
+            _logger.exception("Authentication error")
             return json_response({'error': str(e)}, status=401)
 
     @http.route('/api/signup', type='http', auth='none', methods=['POST'], csrf=False)
@@ -115,9 +116,9 @@ class DayflowAPIController(http.Controller):
                 'password': password,
                 'company_id': company_id,
                 'company_ids': [(6, 0, [company_id])],
-                'group_ids': [(6, 0, [group.id])]
             }
             new_user = env['res.users'].create(user_vals)
+            new_user.write({'group_ids': [(4, group.id)]})
 
             employee_vals = {
                 'name': name,
@@ -128,7 +129,8 @@ class DayflowAPIController(http.Controller):
             }
             new_employee = env['hr.employee'].create(employee_vals)
 
-            uid = request.session.authenticate(db_name, email, password)
+            auth_info = request.session.authenticate(request.env, {'type': 'password', 'login': email, 'password': password})
+            uid = auth_info['uid']
 
             return json_response({
                 'uid': uid,
@@ -140,7 +142,7 @@ class DayflowAPIController(http.Controller):
                 'session_id': request.session.sid
             })
         except Exception as e:
-            _logger.error("Signup error: %s", str(e))
+            _logger.exception("Signup error")
             return json_response({'error': str(e)}, status=500)
 
     @http.route('/api/logout', type='http', auth='user', methods=['POST'], csrf=False)
