@@ -109,7 +109,7 @@ class DayflowAPIController(http.Controller):
                 'name': name,
                 'login': email,
                 'password': password,
-                'groups_id': [(6, 0, [group.id])]
+                'group_ids': [(6, 0, [group.id])]
             }
             new_user = env['res.users'].create(user_vals)
 
