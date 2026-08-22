@@ -1,6 +1,0 @@
-langchain==0.1.13
-langchain-core==0.1.33
-openai==1.14.2
-python-dotenv==1.0.1
-requests==2.31.0
-datahub-mcp-sdk==0.1.0 # Assuming the hypothetical MCP SDK version
