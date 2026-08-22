@@ -108,6 +108,20 @@ function App() {
     }
   };
 
+  // Load Demo Data handler
+  const handleLoadDemoData = async () => {
+    setLoading(true);
+    setAuthError('');
+    try {
+      const data = await api.loadDemoData();
+      alert(data.message || 'Demo data successfully loaded! You can now log in using the credentials below.');
+    } catch (err: any) {
+      setAuthError(err.message || 'Failed to load demo data.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Logout handler
   const handleLogout = async () => {
     try {
@@ -361,6 +375,16 @@ function App() {
               className="text-blue-400 hover:text-blue-300 text-xs font-semibold"
             >
               {isSignUp ? 'Already have an account? Sign In' : "Don't have an account? Sign Up"}
+            </button>
+          </div>
+
+          <div className="mt-4 flex flex-col items-center">
+            <button
+              onClick={handleLoadDemoData}
+              disabled={loading}
+              className="w-full bg-slate-700 hover:bg-slate-600 text-slate-200 text-xs font-semibold py-2.5 px-4 rounded-lg transition-colors border border-slate-650 flex items-center justify-center gap-2"
+            >
+              📊 Load Demo Data
             </button>
           </div>
 

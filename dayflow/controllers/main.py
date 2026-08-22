@@ -73,6 +73,165 @@ class DayflowAPIController(http.Controller):
             _logger.exception("Authentication error")
             return json_response({'error': str(e)}, status=401)
 
+    @http.route('/api/load-demo-data', type='http', auth='none', methods=['POST'], csrf=False)
+    def api_load_demo_data(self, **kw):
+        """Pre-populate the database with demo users, employees, attendances, leaves, and payrolls."""
+        try:
+            env = request.env(su=True)
+            db_name = 'dayflow'
+            
+            # 1. Fetch default company
+            company = env['res.company'].search([], limit=1)
+            company_id = company.id if company else 1
+
+            # 2. Setup standard departments if missing (Engineering, HR)
+            dept_eng = env['hr.department'].search([('name', '=', 'Engineering')], limit=1)
+            if not dept_eng:
+                dept_eng = env['hr.department'].create({'name': 'Engineering'})
+            
+            dept_hr = env['hr.department'].search([('name', '=', 'Human Resources')], limit=1)
+            if not dept_hr:
+                dept_hr = env['hr.department'].create({'name': 'Human Resources'})
+
+            # 3. Define the demo users schema
+            demo_users_data = [
+                {
+                    'login': 'admin',
+                    'name': 'Dayflow Admin',
+                    'password': 'admin',
+                    'role': 'admin',
+                    'group': 'dayflow.group_dayflow_admin',
+                    'dept': dept_eng.id
+                },
+                {
+                    'login': 'hr_user',
+                    'name': 'Sarah HR Manager',
+                    'password': 'hrpwd',
+                    'role': 'hr_officer',
+                    'group': 'dayflow.group_dayflow_hr',
+                    'dept': dept_hr.id
+                },
+                {
+                    'login': 'emp_user',
+                    'name': 'Alex Developer',
+                    'password': 'emppwd',
+                    'role': 'employee',
+                    'group': 'dayflow.group_dayflow_employee',
+                    'dept': dept_eng.id
+                }
+            ]
+
+            # 4. Create/Get the users and employees
+            created_employees = {}
+            for u_data in demo_users_data:
+                user = env['res.users'].search([('login', '=', u_data['login'])], limit=1)
+                group = env.ref(u_data['group'])
+                
+                if not user:
+                    user = env['res.users'].create({
+                        'name': u_data['name'],
+                        'login': u_data['login'],
+                        'password': u_data['password'],
+                        'company_id': company_id,
+                        'company_ids': [(6, 0, [company_id])]
+                    })
+                
+                # Assign groups safely
+                user.write({'group_ids': [(4, group.id)]})
+                if u_data['login'] == 'admin':
+                    # Add base.group_system to admin user
+                    sys_group = env.ref('base.group_system')
+                    user.write({'group_ids': [(4, sys_group.id)]})
+
+                # Check if employee card exists
+                employee = env['hr.employee'].search([('user_id', '=', user.id)], limit=1)
+                if not employee:
+                    employee = env['hr.employee'].create({
+                        'name': u_data['name'],
+                        'work_email': u_data['login'] if '@' in u_data['login'] else f"{u_data['login']}@dayflow.com",
+                        'user_id': user.id,
+                        'company_id': company_id,
+                        'department_id': u_data['dept'],
+                        'dayflow_role': u_data['role']
+                    })
+                created_employees[u_data['role']] = employee
+
+            # Clear existing data to allow clean re-loading
+            env['dayflow.attendance'].search([]).unlink()
+            env['dayflow.leave'].search([]).unlink()
+            env['dayflow.payroll'].search([]).unlink()
+
+            # 5. Generate historical attendances for last 30 days
+            today = fields.Date.today()
+            for i in range(30):
+                date_val = today - timedelta(days=i)
+                # Skip weekends
+                if date_val.weekday() >= 5:
+                    continue
+                
+                for role_name, emp in created_employees.items():
+                    # Admin is always present on time (09:00 AM)
+                    # Employee (Alex) arrives late on some days to trigger AI late arrival alert
+                    is_late = (role_name == 'employee' and (i % 4 == 0)) # Arrived late every 4th day
+                    
+                    check_in_hour = 9 if is_late else 8
+                    check_in_min = 30 if is_late else 45
+                    
+                    check_in_dt = datetime.combine(date_val, datetime.min.time()) + timedelta(hours=check_in_hour, minutes=check_in_min)
+                    check_out_dt = check_in_dt + timedelta(hours=8, minutes=15)
+                    
+                    env['dayflow.attendance'].create({
+                        'employee_id': emp.id,
+                        'check_in': check_in_dt,
+                        'check_out': check_out_dt,
+                        'status': 'present'
+                    })
+
+            # 6. Generate overlapping leaves to trigger AI concurrency warning
+            next_monday = today + timedelta(days=(7 - today.weekday()))
+            
+            # Alex Leave
+            env['dayflow.leave'].create({
+                'employee_id': created_employees['employee'].id,
+                'leave_type': 'sick',
+                'start_date': next_monday,
+                'end_date': next_monday + timedelta(days=2),
+                'state': 'approved',
+                'approver_comments': 'Approved medical checkup.'
+            })
+
+            # Admin Leave (overlapping on Tuesday and Wednesday)
+            env['dayflow.leave'].create({
+                'employee_id': created_employees['admin'].id,
+                'leave_type': 'casual',
+                'start_date': next_monday + timedelta(days=1),
+                'end_date': next_monday + timedelta(days=3),
+                'state': 'pending',
+                'approver_comments': 'Pending review.'
+            })
+
+            # 7. Generate payroll records for current and last month
+            this_month_start = today.replace(day=1)
+            last_month_start = (this_month_start - timedelta(days=1)).replace(day=1)
+            
+            for m_start in [last_month_start, this_month_start]:
+                for role_name, emp in created_employees.items():
+                    basic_salary = 8500 if role_name == 'admin' else (6000 if role_name == 'hr_officer' else 4500)
+                    env['dayflow.payroll'].create({
+                        'employee_id': emp.id,
+                        'basic_salary': basic_salary,
+                        'allowances': 500,
+                        'deductions': 150,
+                        'payroll_month': str(m_start.month).zfill(2),
+                        'payroll_year': str(m_start.year),
+                        'state': 'approved' if m_start == last_month_start else 'draft'
+                    })
+
+            return json_response({'message': 'Demo data loaded successfully!'})
+        except Exception as e:
+            _logger.exception("Load demo data error")
+            return json_response({'error': str(e)}, status=500)
+
     @http.route('/api/signup', type='http', auth='none', methods=['POST'], csrf=False)
     def api_signup(self, **kw):
         """Sign up a new user and link them to an employee record."""

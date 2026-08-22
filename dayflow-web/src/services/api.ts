@@ -131,6 +131,12 @@ export const api = {
     });
   },
 
+  async loadDemoData(): Promise<{ message: string }> {
+    return apiFetch<{ message: string }>('/api/load-demo-data', {
+      method: 'POST',
+    });
+  },
+
   // Attendance
   async getAttendance(): Promise<AttendanceRecord[]> {
     return apiFetch<AttendanceRecord[]>('/api/attendance');
