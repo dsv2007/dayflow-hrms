@@ -33,6 +33,14 @@ class DayflowAttendance(models.Model):
         for rec in self:
             if rec.check_out and rec.check_in > rec.check_out:
                 raise exceptions.ValidationError("Check-out time must be strictly after check-in time.")
+            if not rec.check_out:
+                active = self.search([
+                    ('employee_id', '=', rec.employee_id.id),
+                    ('check_out', '=', False),
+                    ('id', '!=', rec.id)
+                ], limit=1)
+                if active:
+                    raise exceptions.ValidationError("You are already checked in. Please check out first.")
 
     @api.model
     def action_check_in(self, employee_id):

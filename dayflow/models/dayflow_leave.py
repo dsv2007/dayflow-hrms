@@ -9,10 +9,10 @@ class DayflowLeave(models.Model):
 
     employee_id = fields.Many2one('hr.employee', string='Employee', required=True, index=True, tracking=True)
     leave_type = fields.Selection([
-        ('paid', 'Paid Leave'),
         ('sick', 'Sick Leave'),
-        ('unpaid', 'Unpaid Leave')
-    ], string='Leave Type', default='paid', required=True, tracking=True)
+        ('casual', 'Casual Leave'),
+        ('earned', 'Earned Leave')
+    ], string='Leave Type', default='sick', required=True, tracking=True)
     start_date = fields.Date(string='Start Date', required=True, tracking=True)
     end_date = fields.Date(string='End Date', required=True, tracking=True)
     state = fields.Selection([
