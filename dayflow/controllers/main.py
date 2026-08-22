@@ -73,7 +73,7 @@ class DayflowAPIController(http.Controller):
             _logger.exception("Authentication error")
             return json_response({'error': str(e)}, status=401)
 
-    @http.route('/api/load-demo-data', type='http', auth='none', methods=['POST'], csrf=False)
+    @http.route('/api/load-demo-data', type='http', auth='public', methods=['POST'], csrf=False)
     def api_load_demo_data(self, **kw):
         """Pre-populate the database with demo users, employees, attendances, leaves, and payrolls."""
         try:
@@ -232,7 +232,7 @@ class DayflowAPIController(http.Controller):
             _logger.exception("Load demo data error")
             return json_response({'error': str(e)}, status=500)
 
-    @http.route('/api/signup', type='http', auth='none', methods=['POST'], csrf=False)
+    @http.route('/api/signup', type='http', auth='public', methods=['POST'], csrf=False)
     def api_signup(self, **kw):
         """Sign up a new user and link them to an employee record."""
         params = parse_json()
