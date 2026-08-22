@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Mail Template: Allocation Overdue -->
+        <record id="email_template_allocation_overdue" model="mail.template">
+            <field name="name">AssetFlow: Allocation Overdue</field>
+            <field name="model_id" ref="model_assetflow_allocation"/>
+            <field name="subject">Overdue Asset Return: {{ object.asset_id.name }}</field>
+            <field name="email_to">{{ object.employee_id.work_email or object.employee_id.user_id.email }}</field>
+            <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px;">
+    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+        Dear <t t-out="object.employee_id.name or 'Employee'"></t>,<br/><br/>
+        This is a reminder that the asset <strong><t t-out="object.asset_id.name"></t></strong> (Tag: <t t-out="object.asset_id.asset_tag"></t>) allocated to you is currently overdue.<br/><br/>
+        Expected Return Date: <strong><t t-out="object.date_expected_return"></t></strong><br/><br/>
+        Please return the asset to the IT/Facilities department as soon as possible, or request an extension if needed.<br/><br/>
+        Thank you,<br/>
+        AssetFlow Management Team
+    </p>
+</div>
+            </field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+
+        <!-- Mail Template: Maintenance Request Approved -->
+        <record id="email_template_maintenance_approved" model="mail.template">
+            <field name="name">AssetFlow: Maintenance Approved</field>
+            <field name="model_id" ref="model_assetflow_maintenance"/>
+            <field name="subject">Maintenance Approved: {{ object.asset_id.name }}</field>
+            <field name="email_to">{{ object.asset_id.employee_id.work_email or object.asset_id.employee_id.user_id.email }}</field>
+            <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px;">
+    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+        Dear <t t-out="object.asset_id.employee_id.name or 'Employee'"></t>,<br/><br/>
+        The maintenance request for your assigned asset <strong><t t-out="object.asset_id.name"></t></strong> (Tag: <t t-out="object.asset_id.asset_tag"></t>) has been approved.<br/><br/>
+        Status: <strong>Approved for Work</strong><br/>
+        Priority: <strong><t t-out="dict(object.fields_get(allfields=['priority'])['priority']['selection'])[object.priority]"></t></strong><br/><br/>
+        We will notify you once the repair is complete.<br/><br/>
+        Thank you,<br/>
+        AssetFlow Maintenance Team
+    </p>
+</div>
+            </field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+    </data>
+</odoo>

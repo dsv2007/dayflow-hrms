@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scan2Fab AI - Unique Architecture</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&display=swap');
+        
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: #ffffff;
+            width: 1920px;
+            height: 1080px;
+            overflow: hidden;
+            position: relative;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Ambient glowing background */
+        .ambient-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background: 
+                radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 85% 30%, rgba(236, 72, 153, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 50% 80%, rgba(16, 185, 129, 0.08) 0%, transparent 40%);
+        }
+
+        /* Glassmorphism Card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(255,255,255,1);
+            border-radius: 32px;
+        }
+
+        .step-container {
+            position: relative;
+            z-index: 10;
+        }
+
+        .connector-line {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #e2e8f0, #cbd5e1);
+            z-index: 0;
+            transform: translateY(-50%);
+        }
+
+        /* Animated marching ants for data flow */
+        .data-flow {
+            stroke-dasharray: 8;
+            animation: dash 1s linear infinite;
+        }
+        @keyframes dash {
+            to { stroke-dashoffset: -16; }
+        }
+
+        .icon-box {
+            width: 80px;
+            height: 80px;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 2;
+        }
+
+        .point-pill {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            color: #475569;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 8px 16px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-bg"></div>
+
+    <div class="w-full h-full p-16 flex flex-col relative z-10">
+        
+        <!-- Header -->
+        <div class="flex justify-between items-end mb-16">
+            <div>
+                <div class="inline-flex items-center gap-3 bg-slate-900 text-white px-5 py-2 rounded-full text-sm font-bold tracking-widest uppercase mb-4">
+                    <i data-lucide="sparkles" class="w-4 h-4 text-yellow-400"></i> Frontier Technology
+                </div>
+                <h1 class="text-6xl font-black text-slate-900 tracking-tighter mb-2">Scan2Fab AI Pipeline</h1>
+                <p class="text-2xl font-medium text-slate-500">Instant NeRF-to-CNC Reverse Engineering Workflow</p>
+            </div>
+            <div class="text-right">
+                <div class="text-4xl font-black text-blue-600">0%</div>
+                <div class="text-sm font-bold text-slate-400 uppercase tracking-widest">Hardware Cost</div>
+            </div>
+        </div>
+
+        <!-- The Zig-Zag / Stepped Architecture -->
+        <div class="flex-1 glass-card p-12 flex flex-col justify-between relative overflow-hidden">
+            
+            <!-- Curved SVG Connector across the whole card -->
+            <svg class="absolute inset-0 w-full h-full pointer-events-none" style="z-index: 1;">
+                <path d="M 250 200 C 500 200, 500 450, 750 450 C 1000 450, 1000 700, 1250 700 C 1500 700, 1500 450, 1600 450" 
+                      fill="none" stroke="#cbd5e1" stroke-width="4" stroke-dasharray="10 10" />
+                <path d="M 250 200 C 500 200, 500 450, 750 450 C 1000 450, 1000 700, 1250 700 C 1500 700, 1500 450, 1600 450" 
+                      fill="none" stroke="#3b82f6" stroke-width="4" class="data-flow" />
+            </svg>
+
+            <!-- Grid for the 4 stages -->
+            <div class="grid grid-cols-4 gap-8 h-full relative z-10">
+                
+                <!-- Stage 1 -->
+                <div class="flex flex-col relative pt-10">
+                    <div class="icon-box bg-gradient-to-br from-blue-500 to-cyan-500 mb-8 self-center ring-8 ring-blue-50">
+                        <i data-lucide="smartphone" class="w-10 h-10 text-white"></i>
+                    </div>
+                    <div class="text-center mb-6">
+                        <h2 class="text-sm font-black text-blue-600 uppercase tracking-widest mb-2">Phase 1: Capture</h2>
+                        <h3 class="text-3xl font-black text-slate-800">Physical Edge</h3>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-lg shadow-slate-200/50 flex-1">
+                        <p class="text-slate-500 font-medium leading-relaxed mb-6">
+                            An unskilled MSME worker records a 10-second orbital video of a broken mechanical part using any standard smartphone camera.
+                        </p>
+                        <div class="flex flex-col items-start">
+                            <div class="point-pill"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> Zero Capital Cost</div>
+                            <div class="point-pill"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> No Skill Required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stage 2 -->
+                <div class="flex flex-col relative pt-52">
+                    <div class="icon-box bg-gradient-to-br from-purple-500 to-pink-500 mb-8 self-center ring-8 ring-purple-50">
+                        <i data-lucide="brain-circuit" class="w-10 h-10 text-white"></i>
+                    </div>
+                    <div class="text-center mb-6">
+                        <h2 class="text-sm font-black text-purple-600 uppercase tracking-widest mb-2">Phase 2: Compute</h2>
+                        <h3 class="text-3xl font-black text-slate-800">NeRF Cloud Engine</h3>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-lg shadow-slate-200/50 flex-1 border-t-4 border-t-purple-500">
+                        <p class="text-slate-500 font-medium leading-relaxed mb-6">
+                            The cloud AI utilizes <strong>Neural Radiance Fields (NeRF)</strong> and Gaussian Splatting to extrapolate 3D depth and geometry from 2D video frames.
+                        </p>
+                        <div class="flex flex-col items-start">
+                            <div class="point-pill"><i data-lucide="zap" class="w-4 h-4 text-amber-500"></i> Generative Spatial AI</div>
+                            <div class="point-pill"><i data-lucide="zap" class="w-4 h-4 text-amber-500"></i> Sub-millimeter Accuracy</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stage 3 -->
+                <div class="flex flex-col relative pt-[26rem]">
+                    <div class="icon-box bg-gradient-to-br from-emerald-500 to-teal-500 mb-8 self-center ring-8 ring-emerald-50">
+                        <i data-lucide="box" class="w-10 h-10 text-white"></i>
+                    </div>
+                    <div class="text-center mb-6">
+                        <h2 class="text-sm font-black text-emerald-600 uppercase tracking-widest mb-2">Phase 3: Synthesize</h2>
+                        <h3 class="text-3xl font-black text-slate-800">Digital Twin Mesh</h3>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-lg shadow-slate-200/50 flex-1 border-t-4 border-t-emerald-500">
+                        <p class="text-slate-500 font-medium leading-relaxed mb-6">
+                            The AI instantly generates a mathematically perfect 3D digital mesh, exporting it as an industry-standard CAD file ready for manufacturing.
+                        </p>
+                        <div class="flex flex-col items-start">
+                            <div class="point-pill"><i data-lucide="file-code-2" class="w-4 h-4 text-blue-500"></i> .STEP / .STL Output</div>
+                            <div class="point-pill"><i data-lucide="file-code-2" class="w-4 h-4 text-blue-500"></i> Auto-scaling</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stage 4 -->
+                <div class="flex flex-col relative pt-52">
+                    <div class="icon-box bg-gradient-to-br from-orange-500 to-amber-500 mb-8 self-center ring-8 ring-orange-50">
+                        <i data-lucide="settings-2" class="w-10 h-10 text-white"></i>
+                    </div>
+                    <div class="text-center mb-6">
+                        <h2 class="text-sm font-black text-orange-600 uppercase tracking-widest mb-2">Phase 4: Execute</h2>
+                        <h3 class="text-3xl font-black text-slate-800">Factory Machining</h3>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-lg shadow-slate-200/50 flex-1 border-t-4 border-t-orange-500">
+                        <p class="text-slate-500 font-medium leading-relaxed mb-6">
+                            The CAD file is fed directly into the MSME's existing CNC machines or 3D printers to fabricate the physical replacement part instantly.
+                        </p>
+                        <div class="flex flex-col items-start">
+                            <div class="point-pill"><i data-lucide="rocket" class="w-4 h-4 text-rose-500"></i> Zero Setup Time</div>
+                            <div class="point-pill"><i data-lucide="rocket" class="w-4 h-4 text-rose-500"></i> Massive ROI</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+# REQUEST FOR PROPOSAL: Department of Education Laptop Procurement
+
+**RFP ID:** DOE-2026-0817
+**Deadline:** September 15, 2026
+
+## 1. Project Overview
+The Department of Education is seeking a vendor to supply, configure, and deliver 500 laptops for the upcoming school year.
+
+## 2. Vendor Requirements
+Vendors submitting a proposal must meet the following criteria:
+1. **Experience:** Must have at least 3 years of experience operating in the IT procurement space.
+2. **Delivery Timeline:** Must be able to deliver all 500 laptops within 60 days of contract award.
+3. **Security:** Vendor must hold an active ISO 27001 certification.
+4. **Project Management:** The vendor must assign a dedicated Project Manager with a PMP certification.
+
+## 3. Proposal Submission
+Proposals must include:
+- A brief company history demonstrating required experience.
+- A proposed delivery schedule.
+- Evidence of required certifications.
+- Resumes of key personnel.
+- Pricing table.

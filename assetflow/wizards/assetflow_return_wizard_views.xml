@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_assetflow_return_wizard_form" model="ir.ui.view">
+        <name>assetflow.return.wizard.form</name>
+        <model>assetflow.return.wizard</model>
+        <arch type="xml">
+            <form string="Process Asset Return">
+                <sheet>
+                    <group>
+                        <field name="asset_id" readonly="1"/>
+                        <field name="verified_condition"/>
+                    </group>
+                    <group>
+                        <field name="check_in_notes" placeholder="Describe the physical condition of the asset being returned..."/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_apply_return" string="Approve Return" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </arch>
+    </record>
+
+    <record id="action_assetflow_return_wizard" model="ir.actions.act_window">
+        <name>Return Asset</name>
+        <res_model>assetflow.return.wizard</res_model>
+        <view_mode>form</view_mode>
+        <target>new</target>
+    </record>
+</odoo>

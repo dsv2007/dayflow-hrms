@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_assetflow_audit_verify_wizard_form" model="ir.ui.view">
+        <name>assetflow.audit.verify.wizard.form</name>
+        <model>assetflow.audit.verify.wizard</model>
+        <arch type="xml">
+            <form string="Audit Verification entry">
+                <sheet>
+                    <group>
+                        <field name="asset_id"/>
+                        <field name="verified_condition"/>
+                    </group>
+                    <group>
+                        <field name="notes" placeholder="Additional notes or physical check details..."/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_apply_verdict" string="Record Verdict" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </arch>
+    </record>
+
+    <record id="action_assetflow_audit_verify_wizard" model="ir.actions.act_window">
+        <name>Verify Asset</name>
+        <res_model>assetflow.audit.verify.wizard</res_model>
+        <view_mode>form</view_mode>
+        <target>new</target>
+    </record>
+</odoo>

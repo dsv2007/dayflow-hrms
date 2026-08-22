@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InspectAI ZED Architecture - Light Theme</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 30px 30px;
+            color: #334155;
+            width: 1920px;
+            height: 1080px;
+            overflow: hidden;
+            position: relative;
+            margin: 0;
+            padding: 0;
+        }
+
+        .layer-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.05), 0 0 10px rgba(0,0,0,0.01);
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Top colored bar for each card */
+        .card-top-blue { border-top: 6px solid #2563eb; }
+        .card-top-indigo { border-top: 6px solid #4f46e5; }
+        .card-top-rose { border-top: 6px solid #e11d48; }
+        .card-top-emerald { border-top: 6px solid #059669; }
+
+        .bullet-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .icon-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .tech-badge {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 8px;
+            background: #f1f5f9;
+            color: #64748b;
+            border: 1px solid #e2e8f0;
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center p-16 relative">
+    
+    <!-- Title Section -->
+    <div class="w-full max-w-[1700px] flex justify-between items-end mb-12 border-b border-slate-200 pb-8">
+        <div>
+            <h1 class="text-6xl font-extrabold text-slate-900 tracking-tight mb-3">InspectAI ZED</h1>
+            <p class="text-3xl text-slate-500 font-medium">Low-Cost Edge-AI Visual Defect Detection</p>
+        </div>
+        <div class="text-right">
+            <div class="inline-block bg-indigo-100 text-indigo-800 px-4 py-2 rounded-full font-bold text-lg mb-2">MSME Idea Hackathon 6.0</div>
+            <p class="text-base text-slate-500 font-semibold uppercase tracking-wider">Zero Defect Electronics Manufacturing</p>
+        </div>
+    </div>
+
+    <!-- Main Architecture Grid -->
+    <div class="w-full max-w-[1700px] grid grid-cols-4 gap-10 flex-1 relative">
+        
+        <!-- Connecting SVG Arrows -->
+        <svg class="absolute inset-0 w-full h-full pointer-events-none z-0" style="min-height: 600px;">
+            <!-- Arrow 1 to 2 -->
+            <path d="M 400 320 L 440 320" stroke="#cbd5e1" stroke-width="4" stroke-dasharray="8 8" fill="none" />
+            <polygon points="440,320 425,312 425,328" fill="#94a3b8" />
+            
+            <!-- Arrow 2 to 3 -->
+            <path d="M 835 320 L 875 320" stroke="#94a3b8" stroke-width="4" fill="none" />
+            <polygon points="875,320 860,312 860,328" fill="#64748b" />
+
+            <!-- Arrow 3 to 4 -->
+            <path d="M 1270 320 L 1310 320" stroke="#94a3b8" stroke-width="4" fill="none" />
+            <polygon points="1310,320 1295,312 1295,328" fill="#64748b" />
+        </svg>
+
+        <!-- 1. The Physical Setup -->
+        <div class="layer-card card-top-blue p-8 flex flex-col h-full">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="p-3 bg-blue-100 rounded-2xl"><i data-lucide="camera" class="w-8 h-8 text-blue-600"></i></div>
+                <div>
+                    <h2 class="text-sm text-blue-600 font-bold tracking-widest uppercase">Step 1</h2>
+                    <h3 class="text-2xl font-extrabold text-slate-800">Inspection Setup</h3>
+                </div>
+            </div>
+            <p class="text-base text-slate-600 mb-8 font-medium">A highly affordable, plug-and-play visual capture station designed specifically for MSME workbenches.</p>
+            
+            <div class="flex-1 flex flex-col gap-4">
+                <div class="bullet-item">
+                    <div class="icon-circle bg-sky-100 text-sky-600"><i data-lucide="smartphone" class="w-5 h-5"></i></div>
+                    <div>
+                        <h4 class="text-slate-800 font-bold text-lg">Low-Cost Cameras</h4>
+                        <p class="text-sm text-slate-500 mt-1">Utilizes standard smartphone cameras or affordable USB webcams instead of expensive industrial optics.</p>
+                    </div>
+                </div>
+                <div class="bullet-item">
+                    <div class="icon-circle bg-amber-100 text-amber-600"><i data-lucide="sun" class="w-5 h-5"></i></div>
+                    <div>
+                        <h4 class="text-slate-800 font-bold text-lg">Controlled Lighting</h4>
+                        <p class="text-sm text-slate-500 mt-1">Simple LED ring lights eliminate glare and shadows to capture perfectly clear PCB assemblies.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-auto pt-6 border-t border-slate-100 flex gap-2 flex-wrap">
+                <span class="tech-badge">PCB Boards</span>
+                <span class="tech-badge">LED Bulbs</span>
+                <span class="tech-badge">IoT Modules</span>
+            </div>
+        </div>
+
+        <!-- 2. Edge AI Engine -->
+        <div class="layer-card card-top-indigo p-8 flex flex-col h-full">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="p-3 bg-indigo-100 rounded-2xl"><i data-lucide="cpu" class="w-8 h-8 text-indigo-600"></i></div>
+                <div>
+                    <h2 class="text-sm text-indigo-600 font-bold tracking-widest uppercase">Step 2</h2>
+                    <h3 class="text-2xl font-extrabold text-slate-800">Edge-AI Engine</h3>
+                </div>
+            </div>
+            <p class="text-base text-slate-600 mb-8 font-medium">Instant computer vision processing happens locally on a standard laptop or smartphone—no cloud latency.</p>
+            
+            <div class="flex-1 flex flex-col gap-4">
+                <div class="bullet-item">
+                    <div class="icon-circle bg-purple-100 text-purple-600"><i data-lucide="scan-line" class="w-5 h-5"></i></div>
+                    <div>
+                        <h4 class="text-slate-800 font-bold text-lg">Defect Detection</h4>
+                        <p class="text-sm text-slate-500 mt-1">Algorithms instantly scan for missing components, solder bridges, bent pins, and burn marks.</p>
+                    </div>
+                </div>
+                <div class="bullet-item">
+                    <div class="icon-circle bg-indigo-100 text-indigo-600"><i data-lucide="zap" class="w-5 h-5"></i></div>
+                    <div>
+                        <h4 class="text-slate-800 font-bold text-lg">Zero Latency</h4>
+                        <p class="text-sm text-slate-500 mt-1">Local Edge processing guarantees split-second inspection, preventing production line bottlenecks.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-auto pt-6 border-t border-slate-100 flex gap-2 flex-wrap">
+                <span class="tech-badge">Computer Vision</span>
+                <span class="tech-badge">Edge Processing</span>
+                <span class="tech-badge">YOLO / OpenCV</span>
+            </div>
+        </div>
+
+        <!-- 3. Quality Dashboard -->
+        <div class="layer-card card-top-rose p-8 flex flex-col h-full">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="p-3 bg-rose-100 rounded-2xl"><i data-lucide="layout-template" class="w-8 h-8 text-rose-600"></i></div>
+                <div>
+                    <h2 class="text-sm text-rose-600 font-bold tracking-widest uppercase">Step 3</h2>
+                    <h3 class="text-2xl font-extrabold text-slate-800">Smart Interface</h3>
+                </div>
+            </div>
+            <p class="text-base text-slate-600 mb-8 font-medium">A no-code, worker-friendly dashboard that gives clear, unmistakable feedback for quality control.</p>
+            
+            <div class="flex-1 flex flex-col gap-4">
+                <div class="bullet-item">
+                    <div class="icon-circle bg-red-100 text-red-600"><i data-lucide="focus" class="w-5 h-5"></i></div>
+                    <div>
+                        <h4 class="text-slate-800 font-bold text-lg">Visual Highlights</h4>
+                        <p class="text-sm text-slate-500 mt-1">The AI draws red bounding boxes directly around the exact location of the defect on the screen.</p>
+                    </div>
+                </div>
+                <div class="bullet-item">
+                    <div class="icon-circle bg-pink-100 text-pink-600"><i data-lucide="check-circle" class="w-5 h-5"></i></div>
+                    <div>
+                        <h4 class="text-slate-800 font-bold text-lg">Pass / Fail Decisions</h4>
+                        <p class="text-sm text-slate-500 mt-1">Provides absolute binary decisions (Pass/Fail) to remove human error and fatigue from inspection.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-auto pt-6 border-t border-slate-100 flex gap-2 flex-wrap">
+                <span class="tech-badge">No-Code Setup</span>
+                <span class="tech-badge">Web Dashboard</span>
+                <span class="tech-badge">Custom Templates</span>
+            </div>
+        </div>
+
+        <!-- 4. ZED Outcomes -->
+        <div class="layer-card card-top-emerald p-8 flex flex-col h-full">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="p-3 bg-emerald-100 rounded-2xl"><i data-lucide="shield-check" class="w-8 h-8 text-emerald-600"></i></div>
+                <div>
+                    <h2 class="text-sm text-emerald-600 font-bold tracking-widest uppercase">Step 4</h2>
+                    <h3 class="text-2xl font-extrabold text-slate-800">ZED Outcomes</h3>
+                </div>
+            </div>
+            <p class="text-base text-slate-600 mb-8 font-medium">Transforms MSME reputation by ensuring complete compliance with the Zero Defect initiative.</p>
+            
+            <div class="flex-1 flex flex-col gap-4">
+                <div class="bullet-item">
+                    <div class="icon-circle bg-emerald-100 text-emerald-600"><i data-lucide="trending-up" class="w-5 h-5"></i></div>
+                    <div>
+                        <h4 class="text-slate-800 font-bold text-lg">Eliminate Rejections</h4>
+                        <p class="text-sm text-slate-500 mt-1">Dramatically cuts down customer returns and rework costs by catching errors before they ship.</p>
+                    </div>
+                </div>
+                <div class="bullet-item">
+                    <div class="icon-circle bg-teal-100 text-teal-600"><i data-lucide="qr-code" class="w-5 h-5"></i></div>
+                    <div>
+                        <h4 class="text-slate-800 font-bold text-lg">Digital Traceability</h4>
+                        <p class="text-sm text-slate-500 mt-1">Generates QR-coded digital quality audit reports for every batch to ensure complete accountability.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-auto pt-6 border-t border-slate-100 flex gap-2 flex-wrap">
+                <span class="tech-badge">Zero Defect</span>
+                <span class="tech-badge">Audit Reports</span>
+                <span class="tech-badge">High ROI</span>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

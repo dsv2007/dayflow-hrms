@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Module Security Category -->
+        <record id="module_category_assetflow" model="ir.module.category">
+            <name>AssetFlow Management</name>
+            <description>Access levels for the AssetFlow Enterprise system.</description>
+            <sequence>20</sequence>
+        </record>
+
+        <!-- 1. Employee Group -->
+        <record id="group_assetflow_employee" model="res.groups">
+            <name>Employee</name>
+            <category_id ref="module_category_assetflow"/>
+            <implied_ids ref="base.group_user"/>
+        </record>
+
+        <!-- 2. Department Head Group -->
+        <record id="group_assetflow_dept_head" model="res.groups">
+            <name>Department Head</name>
+            <category_id ref="module_category_assetflow"/>
+            <implied_ids ref="group_assetflow_employee"/>
+        </record>
+
+        <!-- 3. Asset Manager Group -->
+        <record id="group_assetflow_manager" model="res.groups">
+            <name>Asset Manager</name>
+            <category_id ref="module_category_assetflow"/>
+            <implied_ids ref="group_assetflow_dept_head"/>
+        </record>
+
+        <!-- 4. System Administrator Group -->
+        <record id="group_assetflow_admin" model="res.groups">
+            <name>System Administrator</name>
+            <category_id ref="module_category_assetflow"/>
+            <implied_ids ref="group_assetflow_manager"/>
+            <users eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>
+
+        <!-- ================= RECORD RULES ================= -->
+        
+        <!-- Employee rules: view own allocations -->
+        <record id="rule_assetflow_allocation_employee" model="ir.rule">
+            <name>Employee: View Own Allocations Only</name>
+            <model_id ref="model_assetflow_allocation"/>
+            <groups eval="[(4, ref('group_assetflow_employee'))]"/>
+            <domain_force>[('employee_id.user_id', '=', user.id)]</domain_force>
+            <perm_read eval="True"/>
+            <perm_write eval="True"/>
+            <perm_create eval="True"/>
+            <perm_unlink eval="False"/>
+        </record>
+
+        <!-- Employee rules: view own bookings -->
+        <record id="rule_assetflow_booking_employee" model="ir.rule">
+            <name>Employee: Manage Own Bookings</name>
+            <model_id ref="model_assetflow_booking"/>
+            <groups eval="[(4, ref('group_assetflow_employee'))]"/>
+            <domain_force>[('employee_id.user_id', '=', user.id)]</domain_force>
+            <perm_read eval="True"/>
+            <perm_write eval="True"/>
+            <perm_create eval="True"/>
+            <perm_unlink eval="True"/>
+        </record>
+
+        <!-- Employee rules: view own maintenance requests -->
+        <record id="rule_assetflow_maintenance_employee" model="ir.rule">
+            <name>Employee: Manage Own Maintenance Requests</name>
+            <model_id ref="model_assetflow_maintenance"/>
+            <groups eval="[(4, ref('group_assetflow_employee'))]"/>
+            <domain_force>[('asset_id.employee_id.user_id', '=', user.id)]</domain_force>
+            <perm_read eval="True"/>
+            <perm_write eval="True"/>
+            <perm_create eval="True"/>
+            <perm_unlink eval="False"/>
+        </record>
+
+        <!-- Department Head rules: view department allocations -->
+        <record id="rule_assetflow_allocation_dept_head" model="ir.rule">
+            <name>Department Head: View Department Allocations</name>
+            <model_id ref="model_assetflow_allocation"/>
+            <groups eval="[(4, ref('group_assetflow_dept_head'))]"/>
+            <domain_force>['|', ('department_id.manager_id.user_id', '=', user.id), ('employee_id.department_id.manager_id.user_id', '=', user.id)]</domain_force>
+            <perm_read eval="True"/>
+            <perm_write eval="True"/>
+            <perm_create eval="True"/>
+            <perm_unlink eval="False"/>
+        </record>
+
+        <!-- Asset Manager rules: see and manage everything -->
+        <record id="rule_assetflow_all_manager" model="ir.rule">
+            <name>Asset Manager: Global Access</name>
+            <model_id ref="model_assetflow_asset"/>
+            <groups eval="[(4, ref('group_assetflow_manager'))]"/>
+            <domain_force>[(1, '=', 1)]</domain_force>
+            <perm_read eval="True"/>
+            <perm_write eval="True"/>
+            <perm_create eval="True"/>
+            <perm_unlink eval="True"/>
+        </record>
+
+        <record id="rule_assetflow_allocation_manager" model="ir.rule">
+            <name>Asset Manager: Global Allocations</name>
+            <model_id ref="model_assetflow_allocation"/>
+            <groups eval="[(4, ref('group_assetflow_manager'))]"/>
+            <domain_force>[(1, '=', 1)]</domain_force>
+            <perm_read eval="True"/>
+            <perm_write eval="True"/>
+            <perm_create eval="True"/>
+            <perm_unlink eval="True"/>
+        </record>
+    </data>
+</odoo>
