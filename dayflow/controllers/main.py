@@ -33,7 +33,7 @@ class DayflowAPIController(http.Controller):
         """Handle CORS pre-flight requests."""
         return json_response({}, status=200)
 
-    @http.route('/api/auth/login', type='http', auth='none', methods=['POST'], csrf=False)
+    @http.route('/api/login', type='http', auth='none', methods=['POST'], csrf=False)
     def api_login(self, **kw):
         """Authenticate user and return session and role details."""
         params = parse_json()
@@ -72,7 +72,71 @@ class DayflowAPIController(http.Controller):
             _logger.error("Authentication error: %s", str(e))
             return json_response({'error': str(e)}, status=401)
 
-    @http.route('/api/auth/logout', type='http', auth='user', methods=['POST'], csrf=False)
+    @http.route('/api/signup', type='http', auth='none', methods=['POST'], csrf=False)
+    def api_signup(self, **kw):
+        """Sign up a new user and link them to an employee record."""
+        params = parse_json()
+        name = params.get('name')
+        email = params.get('email') or params.get('login')
+        password = params.get('password')
+        role = params.get('role') or 'employee'
+        db_name = params.get('db') or request.db or 'dayflow'
+
+        if not name or not email or not password:
+            return json_response({'error': 'Name, email, and password are required.'}, status=400)
+
+        if role not in ['employee', 'hr_officer', 'admin']:
+            return json_response({'error': 'Invalid role specified.'}, status=400)
+
+        try:
+            env = request.env(su=True)
+
+            existing_user = env['res.users'].search([('login', '=', email)], limit=1)
+            if existing_user:
+                return json_response({'error': 'User with this email already exists.'}, status=409)
+
+            group_ref = 'dayflow.group_dayflow_employee'
+            if role == 'hr_officer':
+                group_ref = 'dayflow.group_dayflow_hr'
+            elif role == 'admin':
+                group_ref = 'dayflow.group_dayflow_admin'
+
+            group = env.ref(group_ref)
+            if not group:
+                return json_response({'error': f'Security group {group_ref} not found.'}, status=500)
+
+            user_vals = {
+                'name': name,
+                'login': email,
+                'password': password,
+                'groups_id': [(6, 0, [group.id])]
+            }
+            new_user = env['res.users'].create(user_vals)
+
+            employee_vals = {
+                'name': name,
+                'work_email': email,
+                'user_id': new_user.id,
+                'dayflow_role': role,
+            }
+            new_employee = env['hr.employee'].create(employee_vals)
+
+            uid = request.session.authenticate(db_name, email, password)
+
+            return json_response({
+                'uid': uid,
+                'name': new_employee.name,
+                'email': new_employee.work_email or new_user.login,
+                'role': role,
+                'employee_id': new_employee.id,
+                'department': 'Unassigned',
+                'session_id': request.session.sid
+            })
+        except Exception as e:
+            _logger.error("Signup error: %s", str(e))
+            return json_response({'error': str(e)}, status=500)
+
+    @http.route('/api/logout', type='http', auth='user', methods=['POST'], csrf=False)
     def api_logout(self, **kw):
         """Clear user session."""
         request.session.logout()
@@ -142,49 +206,54 @@ class DayflowAPIController(http.Controller):
         except Exception as e:
             return json_response({'error': str(e)}, status=400)
 
-    @http.route('/api/leave', type='http', auth='user', methods=['GET', 'POST'], csrf=False)
-    def api_leave(self, **kw):
-        """GET list of leaves or POST a new leave request."""
+    @http.route('/api/leaves', type='http', auth='user', methods=['GET'], csrf=False)
+    def api_get_leaves(self, **kw):
+        """GET list of leaves."""
         employee = request.env.user.employee_id
         if not employee:
             return json_response({'error': 'No employee profile linked to user.'}, status=403)
 
-        if request.httprequest.method == 'GET':
-            domain = []
-            if employee.dayflow_role == 'employee':
-                domain = [('employee_id', '=', employee.id)]
-            leaves = request.env['dayflow.leave'].search(domain)
-            result = []
-            for lv in leaves:
-                result.append({
-                    'id': lv.id,
-                    'employee_name': lv.employee_id.name,
-                    'leave_type': lv.leave_type,
-                    'start_date': lv.start_date,
-                    'end_date': lv.end_date,
-                    'state': lv.state,
-                    'rejection_reason': lv.rejection_reason,
-                    'approver_comments': lv.approver_comments
-                })
-            return json_response(result)
+        domain = []
+        if employee.dayflow_role == 'employee':
+            domain = [('employee_id', '=', employee.id)]
+        leaves = request.env['dayflow.leave'].search(domain)
+        result = []
+        for lv in leaves:
+            result.append({
+                'id': lv.id,
+                'employee_name': lv.employee_id.name,
+                'leave_type': lv.leave_type,
+                'start_date': lv.start_date,
+                'end_date': lv.end_date,
+                'state': lv.state,
+                'rejection_reason': lv.rejection_reason,
+                'approver_comments': lv.approver_comments
+            })
+        return json_response(result)
 
-        elif request.httprequest.method == 'POST':
-            params = parse_json()
-            try:
-                leave = request.env['dayflow.leave'].create({
-                    'employee_id': employee.id,
-                    'leave_type': params.get('leave_type', 'paid'),
-                    'start_date': fields.Date.from_string(params.get('start_date')),
-                    'end_date': fields.Date.from_string(params.get('end_date')),
-                    'approver_comments': params.get('remarks')
-                })
-                return json_response({
-                    'message': 'Leave request submitted successfully.',
-                    'id': leave.id,
-                    'state': leave.state
-                })
-            except Exception as e:
-                return json_response({'error': str(e)}, status=400)
+    @http.route('/api/leave/submit', type='http', auth='user', methods=['POST'], csrf=False)
+    def api_submit_leave(self, **kw):
+        """POST a new leave request."""
+        employee = request.env.user.employee_id
+        if not employee:
+            return json_response({'error': 'No employee profile linked to user.'}, status=403)
+
+        params = parse_json()
+        try:
+            leave = request.env['dayflow.leave'].create({
+                'employee_id': employee.id,
+                'leave_type': params.get('leave_type', 'sick'),
+                'start_date': fields.Date.from_string(params.get('start_date')),
+                'end_date': fields.Date.from_string(params.get('end_date')),
+                'approver_comments': params.get('remarks')
+            })
+            return json_response({
+                'message': 'Leave request submitted successfully.',
+                'id': leave.id,
+                'state': leave.state
+            })
+        except Exception as e:
+            return json_response({'error': str(e)}, status=400)
 
     @http.route('/api/leave/<int:leave_id>/approve', type='http', auth='user', methods=['POST'], csrf=False)
     def api_approve_leave(self, leave_id, **kw):
@@ -245,7 +314,7 @@ class DayflowAPIController(http.Controller):
             })
         return json_response(result)
 
-    @http.route('/api/ai/insights', type='http', auth='user', methods=['GET'], csrf=False)
+    @http.route('/api/ai-insights', type='http', auth='user', methods=['GET'], csrf=False)
     def api_ai_insights(self, **kw):
         """GET computed AI HR Insights."""
         employee = request.env.user.employee_id

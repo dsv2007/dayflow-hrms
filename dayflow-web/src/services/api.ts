@@ -93,6 +93,13 @@ export const api = {
     });
   },
 
+  async signup(nameVal: string, loginVal: string, passwordVal: string, roleVal: 'employee' | 'hr_officer' | 'admin'): Promise<UserSession> {
+    return apiFetch<UserSession>('/api/signup', {
+      method: 'POST',
+      body: JSON.stringify({ name: nameVal, login: loginVal, password: passwordVal, role: roleVal }),
+    });
+  },
+
   async logout(): Promise<{ message: string }> {
     return apiFetch<{ message: string }>('/api/logout', {
       method: 'POST',

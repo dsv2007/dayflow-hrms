@@ -22,6 +22,13 @@ function App() {
   const [authError, setAuthError] = useState('');
   const [loading, setLoading] = useState(false);
 
+  // Sign Up states
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [signUpName, setSignUpName] = useState('');
+  const [signUpEmail, setSignUpEmail] = useState('');
+  const [signUpPassword, setSignUpPassword] = useState('');
+  const [signUpRole, setSignUpRole] = useState<'employee' | 'hr_officer' | 'admin'>('employee');
+
   // Tab State
   const [activeTab, setActiveTab] = useState<'dashboard' | 'attendance' | 'leaves' | 'payroll' | 'insights'>('dashboard');
 
@@ -72,6 +79,21 @@ function App() {
       saveSession(data);
     } catch (err: any) {
       setAuthError(err.message || 'Login failed. Please verify credentials.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Sign Up handler
+  const handleSignUp = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setAuthError('');
+    try {
+      const data = await api.signup(signUpName, signUpEmail, signUpPassword, signUpRole);
+      saveSession(data);
+    } catch (err: any) {
+      setAuthError(err.message || 'Signup failed. User may already exist.');
     } finally {
       setLoading(false);
     }
@@ -211,59 +233,136 @@ function App() {
     return (
       <div className="min-h-screen bg-slate-900 flex items-center justify-center p-4">
         <div className="bg-slate-800 rounded-2xl shadow-xl w-full max-w-md p-8 border border-slate-700">
-          <div className="flex flex-col items-center mb-8">
+          <div className="flex flex-col items-center mb-6">
             <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center text-white font-bold text-3xl shadow-lg shadow-blue-500/20 mb-3">
               DF
             </div>
             <h1 className="text-2xl font-bold text-white">Dayflow HRMS</h1>
-            <p className="text-slate-400 text-sm mt-1">Sign in to your dashboard</p>
+            <p className="text-slate-400 text-sm mt-1">
+              {isSignUp ? 'Create your employee profile' : 'Sign in to your dashboard'}
+            </p>
           </div>
 
-          <form onSubmit={handleLogin} className="space-y-6">
-            {authError && (
-              <div className="bg-red-500/10 border border-red-500/20 text-red-400 text-sm p-3 rounded-lg flex items-center gap-2">
-                <AlertCircle className="w-4 h-4 flex-shrink-0" />
-                <span>{authError}</span>
+          {authError && (
+            <div className="bg-red-500/10 border border-red-500/20 text-red-400 text-sm p-3 rounded-lg flex items-center gap-2 mb-6">
+              <AlertCircle className="w-4 h-4 flex-shrink-0" />
+              <span>{authError}</span>
+            </div>
+          )}
+
+          {isSignUp ? (
+            <form onSubmit={handleSignUp} className="space-y-4">
+              <div>
+                <label className="block text-slate-300 text-xs font-medium mb-1.5">Full Name</label>
+                <input 
+                  type="text" 
+                  className="w-full bg-slate-700 border border-slate-600 text-white rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                  value={signUpName}
+                  onChange={(e) => setSignUpName(e.target.value)}
+                  placeholder="e.g. John Doe"
+                  required
+                />
               </div>
-            )}
 
-            <div>
-              <label className="block text-slate-300 text-sm font-medium mb-2">Username</label>
-              <input 
-                type="text" 
-                className="w-full bg-slate-700 border border-slate-600 text-white rounded-lg px-4 py-2.5 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                value={loginVal}
-                onChange={(e) => setLoginVal(e.target.value)}
-                required
-              />
-            </div>
+              <div>
+                <label className="block text-slate-300 text-xs font-medium mb-1.5">Email / Login</label>
+                <input 
+                  type="email" 
+                  className="w-full bg-slate-700 border border-slate-600 text-white rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                  value={signUpEmail}
+                  onChange={(e) => setSignUpEmail(e.target.value)}
+                  placeholder="e.g. john@dayflow.com"
+                  required
+                />
+              </div>
 
-            <div>
-              <label className="block text-slate-300 text-sm font-medium mb-2">Password</label>
-              <input 
-                type="password" 
-                className="w-full bg-slate-700 border border-slate-600 text-white rounded-lg px-4 py-2.5 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                value={passwordVal}
-                onChange={(e) => setPasswordVal(e.target.value)}
-                required
-              />
-            </div>
+              <div>
+                <label className="block text-slate-300 text-xs font-medium mb-1.5">Password</label>
+                <input 
+                  type="password" 
+                  className="w-full bg-slate-700 border border-slate-600 text-white rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                  value={signUpPassword}
+                  onChange={(e) => setSignUpPassword(e.target.value)}
+                  placeholder="••••••••"
+                  required
+                />
+              </div>
 
+              <div>
+                <label className="block text-slate-300 text-xs font-medium mb-1.5">Designated HR Role</label>
+                <select 
+                  className="w-full bg-slate-700 border border-slate-600 text-white rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                  value={signUpRole}
+                  onChange={(e) => setSignUpRole(e.target.value as any)}
+                >
+                  <option value="employee">Employee (View self logs only)</option>
+                  <option value="hr_officer">HR Officer (Manage leaves & view stats)</option>
+                  <option value="admin">Administrator (Full dashboard CRUD)</option>
+                </select>
+              </div>
+
+              <button 
+                type="submit" 
+                disabled={loading}
+                className="w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-lg py-2.5 mt-2 transition-colors shadow-lg shadow-blue-600/15 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {loading ? 'Creating Profile...' : 'Sign Up'}
+              </button>
+            </form>
+          ) : (
+            <form onSubmit={handleLogin} className="space-y-4">
+              <div>
+                <label className="block text-slate-300 text-xs font-medium mb-1.5">Username / Email</label>
+                <input 
+                  type="text" 
+                  className="w-full bg-slate-700 border border-slate-600 text-white rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                  value={loginVal}
+                  onChange={(e) => setLoginVal(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-slate-300 text-xs font-medium mb-1.5">Password</label>
+                <input 
+                  type="password" 
+                  className="w-full bg-slate-700 border border-slate-600 text-white rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                  value={passwordVal}
+                  onChange={(e) => setPasswordVal(e.target.value)}
+                  required
+                />
+              </div>
+
+              <button 
+                type="submit" 
+                disabled={loading}
+                className="w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-lg py-2.5 mt-2 transition-colors shadow-lg shadow-blue-600/15 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {loading ? 'Authenticating...' : 'Sign In'}
+              </button>
+            </form>
+          )}
+
+          <div className="mt-6 pt-4 border-t border-slate-700/50 text-center">
             <button 
-              type="submit" 
-              disabled={loading}
-              className="w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-lg py-3 transition-colors shadow-lg shadow-blue-600/15 disabled:opacity-50 disabled:cursor-not-allowed"
+              onClick={() => {
+                setIsSignUp(!isSignUp);
+                setAuthError('');
+              }}
+              className="text-blue-400 hover:text-blue-300 text-xs font-semibold"
             >
-              {loading ? 'Authenticating...' : 'Sign In'}
+              {isSignUp ? 'Already have an account? Sign In' : "Don't have an account? Sign Up"}
             </button>
-          </form>
-
-          <div className="mt-8 text-center text-xs text-slate-500 space-y-1">
-            <p>Demo Credentials:</p>
-            <p>Admin: admin / admin</p>
-            <p>HR: hr_user / hrpwd</p>
-            <p>Employee: emp_user / emppwd</p>
           </div>
+
+          {!isSignUp && (
+            <div className="mt-6 text-center text-xs text-slate-500 space-y-1">
+              <p className="font-medium text-slate-400">Demo Credentials:</p>
+              <p>Admin: admin / admin</p>
+              <p>HR: hr_user / hrpwd</p>
+              <p>Employee: emp_user / emppwd</p>
+            </div>
+          )}
         </div>
       </div>
     );
