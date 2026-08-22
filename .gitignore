@@ -9,3 +9,13 @@
 
 # Allow tracking of the Dayflow HRMS React frontend web app
 !/dayflow-web/
+
+# Nested ignore rules (ignores build outputs and caches inside allowed folders)
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/*.pyd
+**/node_modules/
+**/dist/
+**/.env
+**/.env.*
