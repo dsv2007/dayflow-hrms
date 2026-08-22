@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UrjaMitra AI Architecture - Unique Centralized Theme</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fafaf9; /* Warm very light stone */
+            background-image: 
+                linear-gradient(to right, #e7e5e4 1px, transparent 1px),
+                linear-gradient(to bottom, #e7e5e4 1px, transparent 1px);
+            background-size: 40px 40px;
+            color: #1c1917;
+            width: 1920px;
+            height: 1080px;
+            overflow: hidden;
+            position: relative;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* The central glowing AI core */
+        .core-orb {
+            background: linear-gradient(135deg, #4f46e5, #0ea5e9);
+            box-shadow: 0 0 60px rgba(14, 165, 233, 0.4), inset 0 0 20px rgba(255,255,255,0.4);
+            animation: pulse-glow 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 60px rgba(14, 165, 233, 0.4), inset 0 0 20px rgba(255,255,255,0.4); }
+            100% { box-shadow: 0 0 100px rgba(79, 70, 229, 0.7), inset 0 0 30px rgba(255,255,255,0.6); }
+        }
+
+        .node-card {
+            background: #ffffff;
+            border: 2px solid #e7e5e4;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px -5px rgba(0,0,0,0.05);
+            padding: 24px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .data-line {
+            position: absolute;
+            z-index: 1;
+            stroke: #a8a29e;
+            stroke-width: 4;
+            fill: none;
+            stroke-dasharray: 10 10;
+        }
+
+        .tech-pill {
+            display: inline-flex;
+            align-items: center;
+            background: #f5f5f4;
+            color: #57534e;
+            padding: 6px 14px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: 1px solid #d6d3d1;
+            margin-right: 8px;
+            margin-top: 8px;
+        }
+
+        /* Colored left borders for structural nodes */
+        .border-left-orange { border-left: 8px solid #f97316; }
+        .border-left-emerald { border-left: 8px solid #10b981; }
+        .border-left-purple { border-left: 8px solid #a855f7; }
+        .border-left-rose { border-left: 8px solid #f43f5e; }
+    </style>
+</head>
+<body class="p-16">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-16 relative z-20">
+        <div>
+            <h1 class="text-6xl font-black text-stone-900 tracking-tight">UrjaMitra AI <span class="text-indigo-600 font-light">System Architecture</span></h1>
+            <p class="text-2xl text-stone-500 font-semibold mt-3 uppercase tracking-widest">End-to-End Digital Twin Pipeline</p>
+        </div>
+        <div class="flex gap-4">
+            <div class="bg-white px-6 py-4 rounded-2xl border-2 border-stone-200 shadow-sm flex items-center gap-4">
+                <i data-lucide="cpu" class="w-8 h-8 text-indigo-600"></i>
+                <div class="text-left">
+                    <div class="text-sm font-bold text-stone-400 uppercase tracking-wider">Processing</div>
+                    <div class="text-xl font-black text-stone-800">Zero Cloud Latency</div>
+                </div>
+            </div>
+            <div class="bg-white px-6 py-4 rounded-2xl border-2 border-stone-200 shadow-sm flex items-center gap-4">
+                <i data-lucide="zap" class="w-8 h-8 text-amber-500"></i>
+                <div class="text-left">
+                    <div class="text-sm font-bold text-stone-400 uppercase tracking-wider">Installation</div>
+                    <div class="text-xl font-black text-stone-800">100% Non-Invasive</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Diagram Area -->
+    <div class="flex-1 relative w-full flex items-center justify-between">
+        
+        <!-- Background SVG Connections -->
+        <svg class="absolute inset-0 w-full h-full pointer-events-none z-0">
+            <!-- Left Side to Center Core -->
+            <path d="M 450 180 C 700 180, 700 450, 850 450" class="data-line animate-pulse" />
+            <polygon points="850,450 830,440 830,460" fill="#a8a29e" />
+
+            <path d="M 450 450 C 700 450, 700 450, 850 450" class="data-line animate-pulse" />
+            <polygon points="850,450 830,440 830,460" fill="#a8a29e" />
+            
+            <path d="M 450 720 C 700 720, 700 450, 850 450" class="data-line animate-pulse" />
+            <polygon points="850,450 830,440 830,460" fill="#a8a29e" />
+
+            <!-- Center Core to Right Side -->
+            <path d="M 1150 450 C 1300 450, 1300 180, 1450 180" class="data-line" style="stroke: #4f46e5; stroke-dasharray: none;" />
+            <polygon points="1450,180 1430,170 1430,190" fill="#4f46e5" />
+
+            <path d="M 1150 450 C 1300 450, 1300 450, 1450 450" class="data-line" style="stroke: #0ea5e9; stroke-dasharray: none;" />
+            <polygon points="1450,450 1430,440 1430,460" fill="#0ea5e9" />
+
+            <path d="M 1150 450 C 1300 450, 1300 720, 1450 720" class="data-line" style="stroke: #10b981; stroke-dasharray: none;" />
+            <polygon points="1450,720 1430,710 1430,730" fill="#10b981" />
+        </svg>
+
+        <!-- LEFT COLUMN: Physical Layer (Data Acquisition) -->
+        <div class="w-[450px] flex flex-col gap-10 z-10 h-full justify-center">
+            
+            <!-- Sensor Node 1 -->
+            <div class="node-card border-left-orange">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="bg-orange-100 p-3 rounded-xl"><i data-lucide="activity" class="w-7 h-7 text-orange-600"></i></div>
+                    <h3 class="text-2xl font-bold text-stone-800">Clip-on Current Sensors</h3>
+                </div>
+                <p class="text-stone-500 font-medium leading-relaxed">Snap-on split-core sensors capture exact machine power draw in real-time without cutting any factory wires.</p>
+                <div>
+                    <span class="tech-pill">SCT-013</span>
+                    <span class="tech-pill">Non-Invasive</span>
+                </div>
+            </div>
+
+            <!-- Sensor Node 2 -->
+            <div class="node-card border-left-orange">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="bg-orange-100 p-3 rounded-xl"><i data-lucide="thermometer-sun" class="w-7 h-7 text-orange-600"></i></div>
+                    <h3 class="text-2xl font-bold text-stone-800">Machine Vitals Sensors</h3>
+                </div>
+                <p class="text-stone-500 font-medium leading-relaxed">Magnetic thermal and vibration nodes attach directly to motor chassis to detect mechanical stress.</p>
+                <div>
+                    <span class="tech-pill">MPU6050 Vib</span>
+                    <span class="tech-pill">DS18B20 Temp</span>
+                </div>
+            </div>
+
+            <!-- Edge Hub -->
+            <div class="node-card border-left-purple bg-purple-50 border-purple-200">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="bg-purple-200 p-3 rounded-xl"><i data-lucide="router" class="w-7 h-7 text-purple-700"></i></div>
+                    <h3 class="text-2xl font-bold text-purple-900">IoT Edge Hub</h3>
+                </div>
+                <p class="text-purple-700 font-medium leading-relaxed">Cleans electrical noise locally and packages telemetry data for ultra-secure transmission via factory Wi-Fi.</p>
+                <div>
+                    <span class="tech-pill bg-purple-100 text-purple-800 border-purple-300">ESP32</span>
+                    <span class="tech-pill bg-purple-100 text-purple-800 border-purple-300">MQTT Secure</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- CENTER COLUMN: AI Engine -->
+        <div class="flex flex-col items-center justify-center z-20 w-[300px]">
+            <div class="text-center mb-6">
+                <div class="text-sm font-black text-indigo-500 uppercase tracking-[0.2em] mb-2">The Brain</div>
+            </div>
+            
+            <div class="core-orb w-72 h-72 rounded-full flex flex-col items-center justify-center text-white relative">
+                <i data-lucide="brain-circuit" class="w-20 h-20 mb-4 opacity-90"></i>
+                <h2 class="text-3xl font-black text-center leading-tight">AI Digital<br>Twin Engine</h2>
+                
+                <!-- Orbital decorations -->
+                <div class="absolute inset-0 border-[3px] border-white/20 rounded-full scale-110"></div>
+                <div class="absolute inset-0 border-[1px] border-white/10 rounded-full scale-125 border-dashed"></div>
+            </div>
+
+            <div class="bg-white mt-12 p-6 rounded-2xl border-2 border-indigo-100 shadow-xl w-80 relative">
+                <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-indigo-600 text-white px-3 py-1 text-xs font-bold uppercase rounded-full tracking-wider">Processing Stack</div>
+                <ul class="space-y-3">
+                    <li class="flex items-center gap-3 text-stone-700 font-semibold"><i data-lucide="check-circle-2" class="w-5 h-5 text-indigo-500"></i> Timeseries Database</li>
+                    <li class="flex items-center gap-3 text-stone-700 font-semibold"><i data-lucide="check-circle-2" class="w-5 h-5 text-indigo-500"></i> ML Power-Waste Rules</li>
+                    <li class="flex items-center gap-3 text-stone-700 font-semibold"><i data-lucide="check-circle-2" class="w-5 h-5 text-indigo-500"></i> Predictive Maintenance</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN: User Outcomes (Dashboard) -->
+        <div class="w-[450px] flex flex-col gap-10 z-10 h-full justify-center">
+            
+            <!-- Dashboard Node -->
+            <div class="node-card border-left-emerald">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="bg-emerald-100 p-3 rounded-xl"><i data-lucide="layout-dashboard" class="w-7 h-7 text-emerald-600"></i></div>
+                    <h3 class="text-2xl font-bold text-stone-800">Financial Dashboard</h3>
+                </div>
+                <p class="text-stone-500 font-medium leading-relaxed">Translates raw wattage into exact Rupee (₹) savings. Owners can visually see idle machine power bleeding in real-time.</p>
+                <div>
+                    <span class="tech-pill">Next.js Web App</span>
+                    <span class="tech-pill">Live Charts</span>
+                </div>
+            </div>
+
+            <!-- Alert Node -->
+            <div class="node-card border-left-rose">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="bg-rose-100 p-3 rounded-xl"><i data-lucide="siren" class="w-7 h-7 text-rose-600"></i></div>
+                    <h3 class="text-2xl font-bold text-stone-800">Proactive Alerts</h3>
+                </div>
+                <p class="text-stone-500 font-medium leading-relaxed">Instantly triggers Push Notifications or SMS when a motor's heat/vibration predicts a catastrophic failure next week.</p>
+                <div>
+                    <span class="tech-pill">Push API</span>
+                    <span class="tech-pill">SMS Gateway</span>
+                </div>
+            </div>
+
+            <!-- ZED Node -->
+            <div class="node-card border-left-emerald bg-emerald-50 border-emerald-200">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="bg-emerald-200 p-3 rounded-xl"><i data-lucide="leaf" class="w-7 h-7 text-emerald-700"></i></div>
+                    <h3 class="text-2xl font-bold text-emerald-900">ZED Green Audit</h3>
+                </div>
+                <p class="text-emerald-700 font-medium leading-relaxed">Automatically tallies Carbon (CO2) reduction metrics, generating compliant reports instantly for MSME ZED Certification.</p>
+                <div>
+                    <span class="tech-pill bg-emerald-100 text-emerald-800 border-emerald-300">PDF Generator</span>
+                    <span class="tech-pill bg-emerald-100 text-emerald-800 border-emerald-300">Zero Defect</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

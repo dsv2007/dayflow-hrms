@@ -1,0 +1,11 @@
+<odoo>
+    <!-- Root Menu -->
+    <menuitem id="menu_dayflow_root" name="Dayflow HRMS" sequence="10"/>
+
+    <!-- Submenus -->
+    <menuitem id="menu_dayflow_employee" name="Employees" parent="menu_dayflow_root" action="hr.open_view_employee_list" sequence="10"/>
+    <menuitem id="menu_dayflow_attendance" name="Attendances" parent="menu_dayflow_root" action="action_dayflow_attendance" sequence="20"/>
+    <menuitem id="menu_dayflow_leave" name="Leave Requests" parent="menu_dayflow_root" action="action_dayflow_leave" sequence="30"/>
+    <menuitem id="menu_dayflow_payroll" name="Payrolls" parent="menu_dayflow_root" action="action_dayflow_payroll" sequence="40"/>
+    <menuitem id="menu_dayflow_ai" name="AI Insights" parent="menu_dayflow_root" action="action_dayflow_ai_insight" sequence="50"/>
+</odoo>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Generic Asset Tag Sequence -->
+        <record id="seq_assetflow_asset_generic" model="ir.sequence">
+            <name>Generic Asset Tag Suffix Sequence</name>
+            <code>seq_assetflow_asset_generic</code>
+            <prefix></prefix>
+            <padding>4</padding>
+            <number_next>1</number_next>
+            <number_increment>1</number_increment>
+        </record>
+
+        <!-- Laptop Prefix Sequence -->
+        <record id="seq_assetflow_asset_lap" model="ir.sequence">
+            <name>Laptop Tag Number Sequence</name>
+            <code>seq_assetflow_asset_lap</code>
+            <prefix></prefix>
+            <padding>4</padding>
+            <number_next>1</number_next>
+            <number_increment>1</number_increment>
+        </record>
+
+        <!-- Vehicle Prefix Sequence -->
+        <record id="seq_assetflow_asset_veh" model="ir.sequence">
+            <name>Vehicle Tag Number Sequence</name>
+            <code>seq_assetflow_asset_veh</code>
+            <prefix></prefix>
+            <padding>4</padding>
+            <number_next>1</number_next>
+            <number_increment>1</number_increment>
+        </record>
+
+        <!-- Booking ID Sequence -->
+        <record id="seq_assetflow_booking" model="ir.sequence">
+            <name>Booking ID Sequence</name>
+            <code>seq_assetflow_booking</code>
+            <prefix>BK-</prefix>
+            <padding>4</padding>
+            <number_next>1</number_next>
+            <number_increment>1</number_increment>
+        </record>
+
+        <!-- Maintenance Ref Sequence -->
+        <record id="seq_assetflow_maintenance" model="ir.sequence">
+            <name>Maintenance Request Reference Sequence</name>
+            <code>seq_assetflow_maintenance</code>
+            <prefix>MAINT-</prefix>
+            <padding>4</padding>
+            <number_next>1</number_next>
+            <number_increment>1</number_increment>
+        </record>
+
+        <!-- Audit Cycle Code Sequence -->
+        <record id="seq_assetflow_audit" model="ir.sequence">
+            <name>Audit Cycle Code Sequence</name>
+            <code>seq_assetflow_audit</code>
+            <prefix>AUDIT-</prefix>
+            <padding>4</padding>
+            <number_next>1</number_next>
+            <number_increment>1</number_increment>
+        </record>
+    </data>
+</odoo>

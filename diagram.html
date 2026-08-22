@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UrjaMitra AI Architecture</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0f172a;
+            color: #f8fafc;
+            width: 1920px;
+            height: 1080px;
+            overflow: hidden;
+            position: relative;
+        }
+        .glass {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glow-box {
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.15);
+        }
+        .glow-box-green {
+            box-shadow: 0 0 25px rgba(74, 222, 128, 0.15);
+        }
+        .glow-box-purple {
+            box-shadow: 0 0 25px rgba(167, 139, 250, 0.15);
+        }
+        
+        .arrow-right {
+            position: relative;
+        }
+        .arrow-right::after {
+            content: '';
+            position: absolute;
+            right: -60px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 4px;
+            background: linear-gradient(90deg, #38bdf8 0%, #a855f7 100%);
+            z-index: -1;
+        }
+        .arrow-right::before {
+            content: '';
+            position: absolute;
+            right: -65px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 15px solid #a855f7;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center p-12 relative">
+    
+    <!-- Background Elements -->
+    <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-blue-600/10 blur-[120px]"></div>
+    <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-purple-600/10 blur-[120px]"></div>
+    
+    <div class="w-full h-full glass rounded-3xl p-12 flex flex-col justify-between border-t border-l border-white/10 relative z-10 shadow-2xl">
+        
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-teal-300 to-green-400 uppercase tracking-widest mb-4">UrjaMitra AI : System Architecture</h1>
+            <p class="text-2xl text-slate-400 font-light">Low-Cost IoT & AI-Powered Energy Twin Platform for MSMEs</p>
+        </div>
+
+        <!-- Main Flowchart Grid -->
+        <div class="flex-1 grid grid-cols-4 gap-12 items-center relative">
+            
+            <!-- Connection Lines (SVG) -->
+            <svg class="absolute inset-0 w-full h-full pointer-events-none z-[-1]" style="min-height: 500px;">
+                <!-- Line 1 to 2 -->
+                <path d="M 380 250 L 450 250" stroke="url(#grad1)" stroke-width="4" fill="none" stroke-dasharray="8 8" />
+                <polygon points="450,250 435,240 435,260" fill="#38bdf8" />
+                
+                <!-- Line 2 to 3 -->
+                <path d="M 830 250 L 900 250" stroke="url(#grad2)" stroke-width="4" fill="none" />
+                <polygon points="900,250 885,240 885,260" fill="#a855f7" />
+                
+                <!-- Line 3 to 4 -->
+                <path d="M 1300 250 L 1370 250" stroke="url(#grad3)" stroke-width="4" fill="none" />
+                <polygon points="1370,250 1355,240 1355,260" fill="#4ade80" />
+
+                <!-- Definitions -->
+                <defs>
+                    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#94a3b8;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#38bdf8;stop-opacity:1" />
+                    </linearGradient>
+                    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#38bdf8;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#a855f7;stop-opacity:1" />
+                    </linearGradient>
+                    <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#a855f7;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#4ade80;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+            </svg>
+
+            <!-- 1. Physical Layer -->
+            <div class="flex flex-col gap-6 h-full justify-center">
+                <div class="bg-slate-800/80 border border-slate-600 rounded-2xl p-6 text-center shadow-lg relative glow-box">
+                    <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-slate-700 px-4 py-1 rounded-full text-sm font-bold text-slate-300">STAGE 1: PHYSICAL</div>
+                    <i data-lucide="factory" class="w-16 h-16 mx-auto mb-4 text-slate-400"></i>
+                    <h2 class="text-xl font-bold mb-2 text-white">Legacy MSME Machinery</h2>
+                    <p class="text-sm text-slate-400">CNC, Textiles, Moulding, Mixers, Packaging Units</p>
+                    
+                    <div class="mt-6 flex flex-col gap-3">
+                        <div class="bg-slate-900/50 p-3 rounded-xl border border-slate-700 flex items-center gap-3">
+                            <i data-lucide="zap" class="text-yellow-400 w-5 h-5"></i>
+                            <span class="text-sm font-semibold text-slate-300">CT Current Sensors</span>
+                        </div>
+                        <div class="bg-slate-900/50 p-3 rounded-xl border border-slate-700 flex items-center gap-3">
+                            <i data-lucide="activity" class="text-red-400 w-5 h-5"></i>
+                            <span class="text-sm font-semibold text-slate-300">Piezo Vibration Sensors</span>
+                        </div>
+                        <div class="bg-slate-900/50 p-3 rounded-xl border border-slate-700 flex items-center gap-3">
+                            <i data-lucide="thermometer" class="text-orange-400 w-5 h-5"></i>
+                            <span class="text-sm font-semibold text-slate-300">Thermal Sensors</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. IoT Edge Layer -->
+            <div class="flex flex-col gap-6 h-full justify-center">
+                <div class="bg-blue-900/30 border border-blue-500/50 rounded-2xl p-6 text-center shadow-lg relative glow-box">
+                    <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-blue-600 px-4 py-1 rounded-full text-sm font-bold text-white">STAGE 2: DATA ACQUISITION</div>
+                    <i data-lucide="cpu" class="w-16 h-16 mx-auto mb-4 text-blue-400"></i>
+                    <h2 class="text-xl font-bold mb-2 text-white">UrjaMitra IoT Retrofit Node</h2>
+                    <p class="text-sm text-blue-200">ESP32 Edge Microcontroller</p>
+                    
+                    <div class="mt-6 flex flex-col gap-3">
+                        <div class="bg-blue-950/50 p-3 rounded-xl border border-blue-800 flex items-center gap-3">
+                            <i data-lucide="filter" class="text-blue-300 w-5 h-5"></i>
+                            <span class="text-sm font-semibold text-slate-200">Edge Signal Filtering</span>
+                        </div>
+                        <div class="bg-blue-950/50 p-3 rounded-xl border border-blue-800 flex items-center gap-3">
+                            <i data-lucide="wifi" class="text-blue-300 w-5 h-5"></i>
+                            <span class="text-sm font-semibold text-slate-200">MQTT over Wi-Fi/4G</span>
+                        </div>
+                        <div class="bg-blue-950/50 p-3 rounded-xl border border-blue-800 flex items-center gap-3">
+                            <i data-lucide="database" class="text-blue-300 w-5 h-5"></i>
+                            <span class="text-sm font-semibold text-slate-200">Timeseries Aggregation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. AI Processing Layer -->
+            <div class="flex flex-col gap-6 h-full justify-center">
+                <div class="bg-purple-900/30 border border-purple-500/50 rounded-2xl p-6 text-center shadow-lg relative glow-box-purple">
+                    <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-purple-600 px-4 py-1 rounded-full text-sm font-bold text-white">STAGE 3: INTELLIGENCE</div>
+                    <i data-lucide="brain-circuit" class="w-16 h-16 mx-auto mb-4 text-purple-400"></i>
+                    <h2 class="text-xl font-bold mb-2 text-white">AI Energy Twin Engine</h2>
+                    <p class="text-sm text-purple-200">Cloud / Local Rule-Based Diagnostics</p>
+                    
+                    <div class="mt-6 flex flex-col gap-3">
+                        <div class="bg-purple-950/50 p-3 rounded-xl border border-purple-800 flex items-center gap-3">
+                            <i data-lucide="battery-warning" class="text-purple-300 w-5 h-5"></i>
+                            <span class="text-sm font-semibold text-slate-200 text-left">Idle Power Wastage Detection</span>
+                        </div>
+                        <div class="bg-purple-950/50 p-3 rounded-xl border border-purple-800 flex items-center gap-3">
+                            <i data-lucide="trending-down" class="text-purple-300 w-5 h-5"></i>
+                            <span class="text-sm font-semibold text-slate-200 text-left">Predictive Failure Correlation (Temp + Vib)</span>
+                        </div>
+                        <div class="bg-purple-950/50 p-3 rounded-xl border border-purple-800 flex items-center gap-3">
+                            <i data-lucide="leaf" class="text-green-400 w-5 h-5"></i>
+                            <span class="text-sm font-semibold text-slate-200 text-left">Carbon Footprint Analysis</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Application Layer -->
+            <div class="flex flex-col gap-6 h-full justify-center">
+                <div class="bg-green-900/30 border border-green-500/50 rounded-2xl p-6 text-center shadow-lg relative glow-box-green">
+                    <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-green-600 px-4 py-1 rounded-full text-sm font-bold text-white">STAGE 4: OUTCOMES</div>
+                    <i data-lucide="layout-dashboard" class="w-16 h-16 mx-auto mb-4 text-green-400"></i>
+                    <h2 class="text-xl font-bold mb-2 text-white">MSME Action Dashboard</h2>
+                    <p class="text-sm text-green-200">Zero Defect, Zero Effect (ZED) Outputs</p>
+                    
+                    <div class="mt-6 flex flex-col gap-3">
+                        <div class="bg-green-950/50 p-3 rounded-xl border border-green-800 flex flex-col items-center gap-1">
+                            <span class="text-xl font-black text-green-400">₹ Direct Savings</span>
+                            <span class="text-xs text-slate-300">Automated ROI & Cost Calculator</span>
+                        </div>
+                        <div class="bg-green-950/50 p-3 rounded-xl border border-green-800 flex flex-col items-center gap-1">
+                            <span class="text-xl font-black text-red-400">Pre-Emptive Alerts</span>
+                            <span class="text-xs text-slate-300">Avoid Catastrophic Downtime</span>
+                        </div>
+                        <div class="bg-green-950/50 p-3 rounded-xl border border-green-800 flex flex-col items-center gap-1">
+                            <span class="text-xl font-black text-blue-400">Digital Audit Reports</span>
+                            <span class="text-xs text-slate-300">Compliance & Productivity Insights</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-12 pt-6 border-t border-white/10">
+            <p class="text-slate-400 font-medium tracking-wide">
+                <span class="text-blue-400 font-bold">Theme:</span> Frontier Technology in MSMEs &nbsp; | &nbsp; 
+                <span class="text-green-400 font-bold">Sub-theme:</span> Energy Efficiency & Industry 4.0
+            </p>
+            <p class="text-xs text-slate-600 mt-2">UrjaMitra AI Architecture - MSME Idea Hackathon 6.0 Submission Diagram</p>
+        </div>
+    </div>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

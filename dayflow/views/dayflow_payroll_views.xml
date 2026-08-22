@@ -1,0 +1,80 @@
+<odoo>
+    <record id="view_dayflow_payroll_tree" model="ir.ui.view">
+        <field name="name">dayflow.payroll.tree</field>
+        <field name="model">dayflow.payroll</field>
+        <field name="arch" type="xml">
+            <list string="Payrolls" decoration-muted="state == 'draft'" decoration-info="state == 'approved'" decoration-success="state == 'paid'">
+                <field name="employee_id"/>
+                <field name="payroll_month"/>
+                <field name="payroll_year"/>
+                <field name="basic_salary"/>
+                <field name="allowances"/>
+                <field name="deductions"/>
+                <field name="net_salary"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_dayflow_payroll_form" model="ir.ui.view">
+        <field name="name">dayflow.payroll.form</field>
+        <field name="model">dayflow.payroll</field>
+        <field name="arch" type="xml">
+            <form string="Payroll Record">
+                <header>
+                    <button name="action_approve" string="Approve" type="object" class="oe_highlight" invisible="state != 'draft'" groups="dayflow.group_dayflow_hr"/>
+                    <button name="action_pay" string="Mark Paid" type="object" class="oe_highlight" invisible="state != 'approved'" groups="dayflow.group_dayflow_hr"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,approved,paid"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group string="Employee Info">
+                            <field name="employee_id" readonly="state in ['approved', 'paid']"/>
+                            <field name="payroll_month" readonly="state in ['approved', 'paid']"/>
+                            <field name="payroll_year" readonly="state in ['approved', 'paid']"/>
+                        </group>
+                        <group string="Salary Details">
+                            <field name="basic_salary" readonly="state in ['approved', 'paid']"/>
+                            <field name="allowances" readonly="state in ['approved', 'paid']"/>
+                            <field name="deductions" readonly="state in ['approved', 'paid']"/>
+                            <field name="net_salary" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_dayflow_payroll_search" model="ir.ui.view">
+        <field name="name">dayflow.payroll.search</field>
+        <field name="model">dayflow.payroll</field>
+        <field name="arch" type="xml">
+            <search string="Search Payroll">
+                <field name="employee_id"/>
+                <field name="payroll_month"/>
+                <field name="payroll_year"/>
+                <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                <filter name="approved" string="Approved" domain="[('state', '=', 'approved')]"/>
+                <filter name="paid" string="Paid" domain="[('state', '=', 'paid')]"/>
+                <group>
+                    <filter string="Employee" name="group_employee" domain="[]" context="{'group_by':'employee_id'}"/>
+                    <filter string="Month" name="group_month" domain="[]" context="{'group_by':'payroll_month'}"/>
+                    <filter string="Year" name="group_year" domain="[]" context="{'group_by':'payroll_year'}"/>
+                    <filter string="Status" name="group_status" domain="[]" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_dayflow_payroll" model="ir.actions.act_window">
+        <field name="name">Payrolls</field>
+        <field name="res_model">dayflow.payroll</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_dayflow_payroll_search"/>
+    </record>
+</odoo>

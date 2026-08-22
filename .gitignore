@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Node / Frontend
+node_modules/
+dist/
+dist-ssr/
+*.local
+.env
+.env.*
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# Temporary scratch scripts
+find_base_groups.py

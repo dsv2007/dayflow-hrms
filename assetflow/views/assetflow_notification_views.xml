@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_assetflow_notification" model="ir.actions.act_window">
+        <name>Notifications Center</name>
+        <res_model>assetflow.notification</res_model>
+        <view_mode>tree,form</view_mode>
+        <context>{'search_default_unread': 1}</context>
+        <help type="html">
+            <p class="o_view_nocontent_smiling_face">
+                In-app alerts and notifications center.
+            </p>
+        </help>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_assetflow_notification_search" model="ir.ui.view">
+        <name>assetflow.notification.search</name>
+        <model>assetflow.notification</model>
+        <arch type="xml">
+            <search string="Search Notifications">
+                <field name="name"/>
+                <filter string="Unread Alerts" name="unread" domain="[('state', '=', 'unread')]"/>
+                <filter string="Read Notifications" name="read" domain="[('state', '=', 'read')]"/>
+            </search>
+        </arch>
+    </record>
+
+    <!-- Tree View -->
+    <record id="view_assetflow_notification_tree" model="ir.ui.view">
+        <name>assetflow.notification.tree</name>
+        <model>assetflow.notification</model>
+        <arch type="xml">
+            <tree string="Notifications" decoration-bf="state == 'unread'" decoration-muted="state == 'read'">
+                <field name="create_date"/>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="state" widget="badge"/>
+                <!-- Button to mark read directly in list view -->
+                <button name="action_mark_read" string="Acknowledge" type="object" icon="fa-check" attrs="{'invisible': [('state', '=', 'read')]}" class="btn-xs btn-primary"/>
+            </tree>
+        </arch>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_assetflow_notification_form" model="ir.ui.view">
+        <name>assetflow.notification.form</name>
+        <model>assetflow.notification</model>
+        <arch type="xml">
+            <form string="Notification Details">
+                <header>
+                    <button name="action_mark_read" string="Mark Acknowledged" type="object" class="btn-primary" attrs="{'invisible': [('state', '=', 'read')]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="unread,read"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name" readonly="1"/>
+                        <field name="create_date" readonly="1"/>
+                        <field name="user_id" readonly="1"/>
+                    </group>
+                    <group string="Message Content">
+                        <field name="description" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </arch>
+    </record>
+</odoo>

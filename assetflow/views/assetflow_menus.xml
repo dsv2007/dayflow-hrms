@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Top-Level Menu -->
+    <menuitem id="menu_assetflow_root"
+              name="AssetFlow"
+              web_icon="assetflow,static/description/icon.png"
+              sequence="10"/>
+
+    <!-- Sidebar Menus -->
+    <menuitem id="menu_assetflow_dashboard"
+              name="Command Center"
+              parent="menu_assetflow_root"
+              action="action_assetflow_dashboard"
+              sequence="5"/>
+
+    <menuitem id="menu_assetflow_operations"
+              name="Operations"
+              parent="menu_assetflow_root"
+              sequence="10"/>
+
+    <menuitem id="menu_assetflow_resources"
+              name="Shared Resources"
+              parent="menu_assetflow_root"
+              sequence="15"/>
+
+    <menuitem id="menu_assetflow_reporting"
+              name="Reporting"
+              parent="menu_assetflow_root"
+              sequence="20"/>
+
+    <menuitem id="menu_assetflow_configuration"
+              name="Configuration"
+              parent="menu_assetflow_root"
+              sequence="25"
+              groups="group_assetflow_admin"/>
+
+    <!-- Operational Sub-Menus -->
+    <menuitem id="menu_assetflow_asset_submenu"
+              name="Asset Passports"
+              parent="menu_assetflow_operations"
+              action="action_assetflow_asset"
+              sequence="10"/>
+
+    <menuitem id="menu_assetflow_allocation_submenu"
+              name="Allocations &amp; Transfers"
+              parent="menu_assetflow_operations"
+              action="action_assetflow_allocation"
+              sequence="20"/>
+
+    <menuitem id="menu_assetflow_maintenance_submenu"
+              name="Maintenance Workflow"
+              parent="menu_assetflow_operations"
+              action="action_assetflow_maintenance"
+              sequence="30"/>
+
+    <menuitem id="menu_assetflow_audit_submenu"
+              name="Audit Cycles"
+              parent="menu_assetflow_operations"
+              action="action_assetflow_audit"
+              sequence="40"/>
+
+    <menuitem id="menu_assetflow_notification_submenu"
+              name="Notifications Center"
+              parent="menu_assetflow_operations"
+              action="action_assetflow_notification"
+              sequence="50"/>
+
+    <!-- Resources Sub-Menus -->
+    <menuitem id="menu_assetflow_booking_submenu"
+              name="Resource Bookings"
+              parent="menu_assetflow_resources"
+              action="action_assetflow_booking"
+              sequence="10"/>
+
+    <!-- Config Sub-Menus -->
+    <menuitem id="menu_assetflow_category_submenu"
+              name="Asset Categories"
+              parent="menu_assetflow_configuration"
+              action="action_assetflow_category"
+              sequence="10"/>
+
+    <menuitem id="menu_assetflow_department_submenu"
+              name="Department Setup"
+              parent="menu_assetflow_configuration"
+              action="action_assetflow_department"
+              sequence="20"/>
+
+    <menuitem id="menu_assetflow_employee_submenu"
+              name="Employee Directory"
+              parent="menu_assetflow_configuration"
+              action="action_assetflow_employee"
+              sequence="30"/>
+</odoo>

@@ -1,0 +1,11 @@
+# Proposal for City Library Laptop Deployment
+**Date:** March 2025
+**Client:** City Library Network
+
+## Project Experience
+ABC Technologies successfully deployed 300 laptops to 15 branches of the City Library Network. This project was completed within 45 days, ahead of the 60-day schedule. 
+
+## Pricing Structure (Historical)
+- Hardware Cost per unit: $850
+- Configuration & Deployment per unit: $100
+- Total Cost per unit: $950

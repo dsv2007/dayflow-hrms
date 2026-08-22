@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UrjaMitra AI Architecture - Light Theme</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc; /* Very light slate */
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 30px 30px;
+            color: #334155;
+            width: 1920px;
+            height: 1080px;
+            overflow: hidden;
+            position: relative;
+            margin: 0;
+            padding: 0;
+        }
+
+        .layer-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.05), 0 0 10px rgba(0,0,0,0.01);
+            position: relative;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        /* Top colored bar for each card */
+        .card-top-blue { border-top: 6px solid #2563eb; }
+        .card-top-teal { border-top: 6px solid #0d9488; }
+        .card-top-purple { border-top: 6px solid #7c3aed; }
+        .card-top-emerald { border-top: 6px solid #059669; }
+
+        .bullet-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .icon-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .tech-badge {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 8px;
+            background: #f1f5f9;
+            color: #64748b;
+            border: 1px solid #e2e8f0;
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center p-16 relative">
+    
+    <!-- Title Section -->
+    <div class="w-full max-w-[1700px] flex justify-between items-end mb-12 border-b border-slate-200 pb-8">
+        <div>
+            <h1 class="text-6xl font-extrabold text-slate-900 tracking-tight mb-3">UrjaMitra AI</h1>
+            <p class="text-3xl text-slate-500 font-medium">How We Upgrade Your Factory Floor</p>
+        </div>
+        <div class="text-right">
+            <div class="inline-block bg-emerald-100 text-emerald-800 px-4 py-2 rounded-full font-bold text-lg mb-2">MSME Idea Hackathon 6.0</div>
+            <p class="text-base text-slate-500 font-semibold uppercase tracking-wider">A zero-disruption upgrade to Industry 4.0</p>
+        </div>
+    </div>
+
+    <!-- Main Architecture Grid -->
+    <div class="w-full max-w-[1700px] grid grid-cols-4 gap-10 flex-1 relative">
+        
+        <!-- Connecting SVG Arrows -->
+        <svg class="absolute inset-0 w-full h-full pointer-events-none z-0" style="min-height: 600px;">
+            <!-- Arrow 1 to 2 -->
+            <path d="M 400 320 L 440 320" stroke="#cbd5e1" stroke-width="4" stroke-dasharray="8 8" fill="none" />
+            <polygon points="440,320 425,312 425,328" fill="#94a3b8" />
+            
+            <!-- Arrow 2 to 3 -->
+            <path d="M 835 320 L 875 320" stroke="#94a3b8" stroke-width="4" fill="none" />
+            <polygon points="875,320 860,312 860,328" fill="#64748b" />
+
+            <!-- Arrow 3 to 4 -->
+            <path d="M 1270 320 L 1310 320" stroke="#94a3b8" stroke-width="4" fill="none" />
+            <polygon points="1310,320 1295,312 1295,328" fill="#64748b" />
+        </svg>
+
+        <!-- 1. The Factory Floor -->
+        <div class="layer-card card-top-blue p-8 flex flex-col h-full">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="p-3 bg-blue-100 rounded-2xl"><i data-lucide="factory" class="w-8 h-8 text-blue-600"></i></div>
+                <div>
+                    <h2 class="text-sm text-blue-600 font-bold tracking-widest uppercase">Step 1</h2>
+                    <h3 class="text-2xl font-extrabold text-slate-800">Your Factory Floor</h3>
+                </div>
+            </div>
+            <p class="text-base text-slate-600 mb-8 font-medium">We start by adding simple, non-invasive sensors to your existing machinery. No wire cutting, no machine downtime.</p>
+            
+            <div class="flex-1 flex flex-col gap-4">
+                <div class="bullet-item">
+                    <div class="icon-circle bg-amber-100 text-amber-600"><i data-lucide="zap" class="w-5 h-5"></i></div>
+                    <div>
+                        <h4 class="text-slate-800 font-bold text-lg">Clip-on Power Sensors</h4>
+                        <p class="text-sm text-slate-500 mt-1">Split-core sensors measure current instantly, showing exactly how much power the machine draws.</p>
+                    </div>
+                </div>
+                <div class="bullet-item">
+                    <div class="icon-circle bg-rose-100 text-rose-600"><i data-lucide="activity" class="w-5 h-5"></i></div>
+                    <div>
+                        <h4 class="text-slate-800 font-bold text-lg">Machine Vitals</h4>
+                        <p class="text-sm text-slate-500 mt-1">External sensors monitor motor temperature and vibrations to feel the "health" of the machine.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-auto pt-6 border-t border-slate-100 flex gap-2 flex-wrap">
+                <span class="tech-badge">Textile Looms</span>
+                <span class="tech-badge">CNC Machines</span>
+                <span class="tech-badge">Packaging</span>
+            </div>
+        </div>
+
+        <!-- 2. The Smart Hub (IoT) -->
+        <div class="layer-card card-top-teal p-8 flex flex-col h-full">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="p-3 bg-teal-100 rounded-2xl"><i data-lucide="wifi" class="w-8 h-8 text-teal-600"></i></div>
+                <div>
+                    <h2 class="text-sm text-teal-600 font-bold tracking-widest uppercase">Step 2</h2>
+                    <h3 class="text-2xl font-extrabold text-slate-800">The Smart Hub</h3>
+                </div>
+            </div>
+            <p class="text-base text-slate-600 mb-8 font-medium">A small, affordable IoT device collects all sensor data and securely transmits it over your factory's Wi-Fi.</p>
+            
+            <div class="flex-1 flex flex-col gap-4">
+                <div class="bullet-item">
+                    <div class="icon-circle bg-slate-100 text-slate-600"><i data-lucide="filter" class="w-5 h-5"></i></div>
+                    <div>
+                        <h4 class="text-slate-800 font-bold text-lg">Data Cleaning</h4>
+                        <p class="text-sm text-slate-500 mt-1">The hub instantly removes electrical noise and calculates the true power consumption on the spot.</p>
+                    </div>
+                </div>
+                <div class="bullet-item">
+                    <div class="icon-circle bg-sky-100 text-sky-600"><i data-lucide="send" class="w-5 h-5"></i></div>
+                    <div>
+                        <h4 class="text-slate-800 font-bold text-lg">Secure Transmission</h4>
+                        <p class="text-sm text-slate-500 mt-1">Data is sent seamlessly to the cloud using lightweight, secure industrial protocols (MQTT).</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-auto pt-6 border-t border-slate-100 flex gap-2 flex-wrap">
+                <span class="tech-badge">ESP32 Chip</span>
+                <span class="tech-badge">Wi-Fi / 4G</span>
+                <span class="tech-badge">MQTT Protocol</span>
+            </div>
+        </div>
+
+        <!-- 3. AI Brain -->
+        <div class="layer-card card-top-purple p-8 flex flex-col h-full">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="p-3 bg-purple-100 rounded-2xl"><i data-lucide="brain-circuit" class="w-8 h-8 text-purple-600"></i></div>
+                <div>
+                    <h2 class="text-sm text-purple-600 font-bold tracking-widest uppercase">Step 3</h2>
+                    <h3 class="text-2xl font-extrabold text-slate-800">The AI Brain</h3>
+                </div>
+            </div>
+            <p class="text-base text-slate-600 mb-8 font-medium">Our cloud engine analyzes the data 24/7, creating a "Digital Twin" that thinks and predicts issues for you.</p>
+            
+            <div class="flex-1 flex flex-col gap-4">
+                <div class="bullet-item">
+                    <div class="icon-circle bg-pink-100 text-pink-600"><i data-lucide="battery-warning" class="w-5 h-5"></i></div>
+                    <div>
+                        <h4 class="text-slate-800 font-bold text-lg">Finds Wasted Power</h4>
+                        <p class="text-sm text-slate-500 mt-1">The AI detects when a machine is turned on but producing nothing, flagging invisible energy waste.</p>
+                    </div>
+                </div>
+                <div class="bullet-item">
+                    <div class="icon-circle bg-orange-100 text-orange-600"><i data-lucide="alert-triangle" class="w-5 h-5"></i></div>
+                    <div>
+                        <h4 class="text-slate-800 font-bold text-lg">Predicts Breakdowns</h4>
+                        <p class="text-sm text-slate-500 mt-1">By noticing tiny changes in vibration and heat, it warns you before a motor burns out or a bearing breaks.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-auto pt-6 border-t border-slate-100 flex gap-2 flex-wrap">
+                <span class="tech-badge">AI Rule Engine</span>
+                <span class="tech-badge">Timeseries DB</span>
+                <span class="tech-badge">Prisma ORM</span>
+            </div>
+        </div>
+
+        <!-- 4. Factory Owner Dashboard -->
+        <div class="layer-card card-top-emerald p-8 flex flex-col h-full">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="p-3 bg-emerald-100 rounded-2xl"><i data-lucide="smartphone" class="w-8 h-8 text-emerald-600"></i></div>
+                <div>
+                    <h2 class="text-sm text-emerald-600 font-bold tracking-widest uppercase">Step 4</h2>
+                    <h3 class="text-2xl font-extrabold text-slate-800">Your Dashboard</h3>
+                </div>
+            </div>
+            <p class="text-base text-slate-600 mb-8 font-medium">You get a clean, easy-to-use app that translates complex data into simple actions and exact rupee savings.</p>
+            
+            <div class="flex-1 flex flex-col gap-4">
+                <div class="bullet-item">
+                    <div class="icon-circle bg-green-100 text-green-600"><i data-lucide="indian-rupee" class="w-5 h-5"></i></div>
+                    <div>
+                        <h4 class="text-slate-800 font-bold text-lg">Live ROI & Savings</h4>
+                        <p class="text-sm text-slate-500 mt-1">See exactly how much money you save every day by cutting down idle power wastage.</p>
+                    </div>
+                </div>
+                <div class="bullet-item">
+                    <div class="icon-circle bg-indigo-100 text-indigo-600"><i data-lucide="bell-ring" class="w-5 h-5"></i></div>
+                    <div>
+                        <h4 class="text-slate-800 font-bold text-lg">Maintenance Alerts</h4>
+                        <p class="text-sm text-slate-500 mt-1">Receive SMS/App notifications saying "Service Machine A today to prevent a breakdown tomorrow".</p>
+                    </div>
+                </div>
+                <div class="bullet-item">
+                    <div class="icon-circle bg-lime-100 text-lime-600"><i data-lucide="leaf" class="w-5 h-5"></i></div>
+                    <div>
+                        <h4 class="text-slate-800 font-bold text-lg">Green Certification</h4>
+                        <p class="text-sm text-slate-500 mt-1">Automatically generate carbon reduction reports required for ZED (Zero Defect, Zero Effect) compliance.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-auto pt-6 border-t border-slate-100 flex gap-2 flex-wrap">
+                <span class="tech-badge">Next.js Web App</span>
+                <span class="tech-badge">Mobile Friendly</span>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

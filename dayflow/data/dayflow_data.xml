@@ -1,0 +1,24 @@
+<odoo>
+    <data noupdate="1">
+        <!-- Departments -->
+        <record id="dep_engineering" model="hr.department">
+            <field name="name">Engineering</field>
+        </record>
+        <record id="dep_marketing" model="hr.department">
+            <field name="name">Marketing</field>
+        </record>
+        <record id="dep_hr" model="hr.department">
+            <field name="name">Human Resources</field>
+        </record>
+
+        <!-- Jobs -->
+        <record id="job_engineer" model="hr.job">
+            <field name="name">Software Engineer</field>
+            <field name="department_id" ref="dep_engineering"/>
+        </record>
+        <record id="job_marketer" model="hr.job">
+            <field name="name">Marketing Specialist</field>
+            <field name="department_id" ref="dep_marketing"/>
+        </record>
+    </data>
+</odoo>

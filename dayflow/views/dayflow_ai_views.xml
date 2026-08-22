@@ -1,0 +1,33 @@
+<odoo>
+    <record id="view_dayflow_ai_insight_viewer_form" model="ir.ui.view">
+        <field name="name">dayflow.ai.insight.viewer.form</field>
+        <field name="model">dayflow.ai.insight.viewer</field>
+        <field name="arch" type="xml">
+            <form string="AI HR Insights" create="false" edit="false">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>AI HR Insights</h1>
+                    </div>
+                    <notebook>
+                        <page string="Late Arrivals Report" name="late_arrivals">
+                            <field name="late_arrivals_html" widget="html" readonly="1" nolabel="1"/>
+                        </page>
+                        <page string="Department Concurrency Alerts" name="overlapping_leaves">
+                            <field name="overlapping_leaves_html" widget="html" readonly="1" nolabel="1"/>
+                        </page>
+                        <page string="Attendance Trends" name="department_trends">
+                            <field name="department_trends_html" widget="html" readonly="1" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_dayflow_ai_insight" model="ir.actions.act_window">
+        <field name="name">AI HR Insights</field>
+        <field name="res_model">dayflow.ai.insight.viewer</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+    </record>
+</odoo>

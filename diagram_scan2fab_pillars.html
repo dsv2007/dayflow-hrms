@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scan2Fab AI - Pillar Architecture</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            background-image: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            width: 1920px;
+            height: 1080px;
+            overflow: hidden;
+            position: relative;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Technical grid background */
+        .grid-bg {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(148, 163, 184, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(148, 163, 184, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: 0;
+        }
+
+        .pillar-card {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.05);
+            border-top: 8px solid;
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .pillar-1 { border-color: #3b82f6; }
+        .pillar-2 { border-color: #8b5cf6; }
+        .pillar-3 { border-color: #10b981; }
+
+        .pillar-header {
+            padding: 32px;
+            border-bottom: 1px solid #f1f5f9;
+            background: #f8fafc;
+        }
+
+        .tech-box {
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .icon-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* Connector arrows between pillars */
+        .arrow-connector {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 80px;
+            height: 16px;
+            background: #cbd5e1;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .arrow-connector::after {
+            content: '';
+            position: absolute;
+            right: -16px;
+            border-top: 16px solid transparent;
+            border-bottom: 16px solid transparent;
+            border-left: 16px solid #cbd5e1;
+        }
+
+        .badge {
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 1px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: #slate-100;
+        }
+    </style>
+</head>
+<body class="p-16 flex flex-col justify-center items-center">
+    
+    <div class="grid-bg"></div>
+
+    <div class="w-full max-w-[1700px] relative z-10 flex flex-col h-full">
+        
+        <!-- Header -->
+        <div class="bg-white rounded-3xl p-8 mb-12 shadow-sm border border-slate-200 flex justify-between items-center">
+            <div>
+                <h1 class="text-5xl font-black text-slate-900 tracking-tight">Scan2Fab AI <span class="font-light text-slate-400">| System Architecture</span></h1>
+                <p class="text-xl text-slate-500 font-semibold mt-2 tracking-wide">3-Phase Technical Pipeline for MSME Reverse Engineering</p>
+            </div>
+            <div class="flex gap-4">
+                <span class="bg-blue-50 border border-blue-200 text-blue-700 font-bold px-4 py-2 rounded-xl flex items-center gap-2">
+                    <i data-lucide="shield-check" class="w-5 h-5"></i> Highly Scalable
+                </span>
+                <span class="bg-purple-50 border border-purple-200 text-purple-700 font-bold px-4 py-2 rounded-xl flex items-center gap-2">
+                    <i data-lucide="cpu" class="w-5 h-5"></i> GPU Cloud Native
+                </span>
+            </div>
+        </div>
+
+        <!-- 3 Pillars Container -->
+        <div class="flex-1 flex gap-12 relative w-full items-stretch">
+
+            <!-- Arrow Connectors -->
+            <div class="arrow-connector" style="left: 31%;"><i data-lucide="chevron-right" class="text-slate-50 opacity-0"></i></div>
+            <div class="arrow-connector" style="left: 65%;"><i data-lucide="chevron-right" class="text-slate-50 opacity-0"></i></div>
+
+            <!-- PILLAR 1 -->
+            <div class="pillar-card pillar-1 flex-1">
+                <div class="pillar-header">
+                    <div class="badge bg-blue-100 text-blue-700 mb-3">Phase 1: Ingestion</div>
+                    <h2 class="text-3xl font-black text-slate-800">Physical to Digital</h2>
+                    <p class="text-slate-500 mt-2 font-medium">Capturing the physical object geometry entirely without laser hardware.</p>
+                </div>
+                <div class="p-8 flex-1 flex flex-col bg-slate-50/50">
+                    <div class="tech-box shadow-sm">
+                        <div class="icon-circle bg-blue-100 text-blue-600"><i data-lucide="smartphone" class="w-7 h-7"></i></div>
+                        <div>
+                            <h4 class="font-bold text-lg text-slate-800">Standard Smartphone Camera</h4>
+                            <p class="text-sm text-slate-500 mt-1">Worker records a simple 360-degree orbital 4K video of the broken part.</p>
+                        </div>
+                    </div>
+                    <div class="tech-box shadow-sm">
+                        <div class="icon-circle bg-blue-100 text-blue-600"><i data-lucide="wifi" class="w-7 h-7"></i></div>
+                        <div>
+                            <h4 class="font-bold text-lg text-slate-800">Encrypted Cloud Uplink</h4>
+                            <p class="text-sm text-slate-500 mt-1">2D video frames are extracted, encrypted, and streamed to the high-performance AWS/GCP GPU cluster.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PILLAR 2 -->
+            <div class="pillar-card pillar-2 flex-1 transform scale-105 shadow-2xl z-20">
+                <div class="pillar-header">
+                    <div class="badge bg-purple-100 text-purple-700 mb-3">Phase 2: Computation</div>
+                    <h2 class="text-3xl font-black text-slate-800">AI Neural Engine</h2>
+                    <p class="text-slate-500 mt-2 font-medium">The core frontier technology utilizing Generative Spatial AI.</p>
+                </div>
+                <div class="p-8 flex-1 flex flex-col bg-white">
+                    <div class="tech-box border-purple-200 bg-purple-50">
+                        <div class="icon-circle bg-purple-600 text-white"><i data-lucide="brain-circuit" class="w-7 h-7"></i></div>
+                        <div>
+                            <h4 class="font-bold text-lg text-purple-900">Neural Radiance Fields (NeRF)</h4>
+                            <p class="text-sm text-purple-700 mt-1">Deep neural networks learn the volumetric scene representation, calculating exact depth from flat 2D pixels.</p>
+                        </div>
+                    </div>
+                    <div class="tech-box border-purple-200 bg-purple-50">
+                        <div class="icon-circle bg-purple-600 text-white"><i data-lucide="scatter-chart" class="w-7 h-7"></i></div>
+                        <div>
+                            <h4 class="font-bold text-lg text-purple-900">3D Gaussian Splatting</h4>
+                            <p class="text-sm text-purple-700 mt-1">Ultra-fast rendering generates a high-density, dimensionally accurate point cloud of the mechanical part.</p>
+                        </div>
+                    </div>
+                    <div class="tech-box border-purple-200 bg-purple-50">
+                        <div class="icon-circle bg-purple-600 text-white"><i data-lucide="layers" class="w-7 h-7"></i></div>
+                        <div>
+                            <h4 class="font-bold text-lg text-purple-900">Mesh Synthesis</h4>
+                            <p class="text-sm text-purple-700 mt-1">Point cloud is converted into a solid, watertight polygonal mesh, sealing any optical holes automatically.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PILLAR 3 -->
+            <div class="pillar-card pillar-3 flex-1">
+                <div class="pillar-header">
+                    <div class="badge bg-emerald-100 text-emerald-700 mb-3">Phase 3: Fabrication</div>
+                    <h2 class="text-3xl font-black text-slate-800">Digital to Physical</h2>
+                    <p class="text-slate-500 mt-2 font-medium">Returning the digital twin back into the real world as a finished product.</p>
+                </div>
+                <div class="p-8 flex-1 flex flex-col bg-slate-50/50">
+                    <div class="tech-box shadow-sm">
+                        <div class="icon-circle bg-emerald-100 text-emerald-600"><i data-lucide="file-code-2" class="w-7 h-7"></i></div>
+                        <div>
+                            <h4 class="font-bold text-lg text-slate-800">Universal CAD Export</h4>
+                            <p class="text-sm text-slate-500 mt-1">System instantly outputs standardized .STEP or .STL files, bypassing manual AutoCAD drafting completely.</p>
+                        </div>
+                    </div>
+                    <div class="tech-box shadow-sm">
+                        <div class="icon-circle bg-emerald-100 text-emerald-600"><i data-lucide="cpu" class="w-7 h-7"></i></div>
+                        <div>
+                            <h4 class="font-bold text-lg text-slate-800">Factory CNC Execution</h4>
+                            <p class="text-sm text-slate-500 mt-1">File is fed directly into MSME CNC machines or Industrial 3D Printers to fabricate the replacement part.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
