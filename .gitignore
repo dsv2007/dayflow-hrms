@@ -1,30 +1,11 @@
-# Python
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.pytest_cache/
-.coverage
-htmlcov/
+# Ignore everything by default in the workspace root
+/*
 
-# Node / Frontend
-node_modules/
-dist/
-dist-ssr/
-*.local
-.env
-.env.*
+# Allow tracking of this .gitignore file
+!/.gitignore
 
-# Editor / OS
-.vscode/
-.idea/
-.DS_Store
-Thumbs.db
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.swp
+# Allow tracking of the Dayflow HRMS Odoo backend module
+!/dayflow/
 
-# Temporary scratch scripts
-find_base_groups.py
+# Allow tracking of the Dayflow HRMS React frontend web app
+!/dayflow-web/
