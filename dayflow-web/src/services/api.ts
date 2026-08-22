@@ -84,20 +84,45 @@ async function apiFetch<T>(url: string, options: RequestInit = {}): Promise<T> {
   return data as T;
 }
 
+interface OdooAuthResponse {
+  uid: number;
+  name: string;
+  email: string;
+  role: 'employee' | 'hr_officer' | 'admin';
+  employee_id: number;
+  department: string;
+  session_id: string;
+}
+
+const mapOdooResponse = (res: OdooAuthResponse): UserSession => {
+  return {
+    session_id: res.session_id,
+    uid: res.uid,
+    username: res.email,
+    employee: {
+      id: res.employee_id,
+      name: res.name,
+      role: res.role === 'hr_officer' ? 'hr' : res.role,
+    }
+  };
+};
+
 export const api = {
   // Authentication
   async login(loginVal: string, passwordVal: string): Promise<UserSession> {
-    return apiFetch<UserSession>('/api/login', {
+    const res = await apiFetch<OdooAuthResponse>('/api/login', {
       method: 'POST',
       body: JSON.stringify({ login: loginVal, password: passwordVal }),
     });
+    return mapOdooResponse(res);
   },
 
   async signup(nameVal: string, loginVal: string, passwordVal: string, roleVal: 'employee' | 'hr_officer' | 'admin'): Promise<UserSession> {
-    return apiFetch<UserSession>('/api/signup', {
+    const res = await apiFetch<OdooAuthResponse>('/api/signup', {
       method: 'POST',
       body: JSON.stringify({ name: nameVal, login: loginVal, password: passwordVal, role: roleVal }),
     });
+    return mapOdooResponse(res);
   },
 
   async logout(): Promise<{ message: string }> {
